@@ -7,3 +7,5 @@ Plug "https://github.com/rafi/awesome-vim-colorschemes.git"
 
 " Initialize plugin system
 call plug#end()
+
+source stdpath('data') . 'basic-settings.vim'
