@@ -7,6 +7,12 @@ colorscheme deep-space
 set number
 set relativenumber
 
+" Switching between buffers without saving
+set hidden
+
+" Taller commandline
+set cmdheight=2
+
 " Highlight current line
 set cursorline
 

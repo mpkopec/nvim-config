@@ -15,3 +15,5 @@ exec 'source ' .  stdpath('config') . '/basic-settings.vim'
 exec 'source ' .  stdpath('config') . '/basic-nmaps.vim'
 exec 'source ' .  stdpath('config') . '/leader-nmaps.vim'
 exec 'source ' .  stdpath('config') . '/fugitive-config.vim'
+
+exec 'source ' .  stdpath('config') . '/coc-settings.vim'
