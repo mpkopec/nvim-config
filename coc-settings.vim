@@ -17,11 +17,11 @@ endif
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
+inoremap <silent><expr> <c-j>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><c-k> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -134,22 +134,22 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> ,a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> ,ca  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> ,e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> ,ce  :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent><nowait> ,c  :<C-u>CocList commands<cr>
+nnoremap <silent><nowait> ,cc  :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent><nowait> ,o  :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> ,co  :<C-u>CocList outline<cr>
 " Search workspace symbols.
-nnoremap <silent><nowait> ,s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> ,cs  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent><nowait> ,j  :<C-u>CocNext<CR>
+nnoremap <silent><nowait> ,cj  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent><nowait> ,k  :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> ,ck  :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent><nowait> ,p  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> ,cp  :<C-u>CocListResume<CR>

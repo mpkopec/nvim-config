@@ -31,7 +31,7 @@ nnoremap ,T :enew<cr>
 nnoremap ,l :bnext<CR>
 
 " Move to the previous buffer
-nnoremap ,h :bprevious<CR>
+nnoremap ,j :bprevious<CR>
 
 " Quicker shell opening
 nnoremap ,s :terminal<CR>
