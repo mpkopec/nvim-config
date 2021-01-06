@@ -1,5 +1,3 @@
-" TODO there is a more contemporary version of this file
-" TODO Also some of it is redundant
 "VSCode
 function! s:split(...) abort
     let direction = a:1
