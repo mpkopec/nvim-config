@@ -24,5 +24,5 @@ endif
 " Move to word
 map  ,w <Plug>(easymotion-bd-w)
 if !exists('g:vscode')
-  nmap ,w <Plug>(easymotion-overwin-w)
+  " nmap ,w <Plug>(easymotion-overwin-w)
 endif
