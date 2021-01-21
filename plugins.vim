@@ -29,6 +29,9 @@ if exists('g:vscode')
   Plug 'asvetliakov/vim-easymotion'
   Plug 'machakann/vim-highlightedyank'
 else
+  " NeoVim in Firefox
+  Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
   " Easymotion
   Plug 'easymotion/vim-easymotion'
 
