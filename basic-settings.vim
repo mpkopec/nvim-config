@@ -28,9 +28,23 @@ set incsearch
 " For regular expressions turn magic on
 set magic
 
-" Set line wrapping
-set wrap
+" Set line wrapping and its navigation
+set wrap linebreak nolist
 set showbreak=…
+
+vmap j gj
+vmap k gk
+nmap j gj
+nmap k gk
+
+inoremap <C-h> <Left>
+inoremap <C-j> <C-o>gj
+inoremap <C-k> <C-o>gk
+inoremap <C-l> <Right>
+cnoremap <C-h> <Left>
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+cnoremap <C-l> <Right>
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
