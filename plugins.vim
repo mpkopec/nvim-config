@@ -50,7 +50,7 @@ else
   Plug 'alvan/vim-closetag'
 
   " Status Line
-  "Plug 'glepnir/galaxyline.nvim'
+  Plug 'glepnir/galaxyline.nvim'
 
   " Ranger file explorer in a floating window
   Plug 'kevinhwang91/rnvimr'
