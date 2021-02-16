@@ -1,6 +1,9 @@
-nnoremap <space>gs :Gstatus<CR>
-nnoremap <space>gc :Gcommit<CR>
-nnoremap <space>gu :Gpush<CR>
-nnoremap <space>gd :Gpull<CR>
-nnoremap <space>gf :Gfetch<CR>
-nnoremap <space>gm :Gmerge<CR>
+if exists('g:vscode')
+  " only if not in VS Code
+  nnoremap ,gs :Gstatus<CR>
+  nnoremap ,gc :Gcommit<CR>
+  nnoremap ,gu :Gpush<CR>
+  nnoremap ,gd :Gpull<CR>
+  nnoremap ,gf :Gfetch<CR>
+  nnoremap ,gm :Gmerge<CR>
+endif
