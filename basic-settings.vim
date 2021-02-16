@@ -1,8 +1,7 @@
 " TODO Add folding and divide the file into logical blocks
 " Colorscheme handling
 set termguicolors
-"colorscheme deep-space
-colorscheme office-dark
+colorscheme carbonized-dark
 
 " Show line numbers properly
 set number

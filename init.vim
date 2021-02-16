@@ -9,6 +9,7 @@ exec 'source ' .  stdpath('config') . '/plugconf/easymotion.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/firenvim.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/fugitive.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/highlightyank.vim'
+exec 'source ' .  stdpath('config') . '/plugconf/switcher.vim'
 
 if exists('g:vscode')
   " VS Code extension

@@ -29,6 +29,10 @@ if exists('g:vscode')
   " Easy motion for VSCode
   Plug 'asvetliakov/vim-easymotion'
 else
+  " Colorscheme switcher
+  Plug 'https://github.com/xolox/vim-misc.git'
+  Plug 'https://github.com/xolox/vim-colorscheme-switcher.git'
+
   " Text Navigation
   Plug 'unblevable/quick-scope'
 
