@@ -24,10 +24,12 @@ Plug 'tpope/vim-repeat'
 " Text Navigation
 Plug 'unblevable/quick-scope'
 
+" Highlight just yanked text
+Plug 'machakann/vim-highlightedyank'
+
 if exists('g:vscode')
   " Easy motion for VSCode
   Plug 'asvetliakov/vim-easymotion'
-  Plug 'machakann/vim-highlightedyank'
 else
   " NeoVim in Firefox
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
@@ -48,7 +50,7 @@ else
   Plug 'alvan/vim-closetag'
 
   " Status Line
-  Plug 'glepnir/galaxyline.nvim'
+  "Plug 'glepnir/galaxyline.nvim'
 
   " Ranger file explorer in a floating window
   Plug 'kevinhwang91/rnvimr'

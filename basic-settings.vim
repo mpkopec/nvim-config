@@ -28,8 +28,9 @@ set incsearch
 " For regular expressions turn magic on
 set magic
 
-" No line wrapping
-set nowrap
+" Set line wrapping
+set wrap
+set showbreak=…
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
