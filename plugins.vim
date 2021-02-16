@@ -21,9 +21,6 @@ Plug 'glts/vim-radical'
 " Repeat stuff
 Plug 'tpope/vim-repeat'
 
-" Text Navigation
-Plug 'unblevable/quick-scope'
-
 " Highlight just yanked text
 Plug 'machakann/vim-highlightedyank'
 
@@ -31,6 +28,9 @@ if exists('g:vscode')
   " Easy motion for VSCode
   Plug 'asvetliakov/vim-easymotion'
 else
+  " Text Navigation
+  Plug 'unblevable/quick-scope'
+
   " NeoVim in Firefox
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
