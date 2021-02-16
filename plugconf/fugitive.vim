@@ -1,4 +1,4 @@
-if exists('g:vscode')
+if !exists('g:vscode')
   " only if not in VS Code
   nnoremap ,gs :Gstatus<CR>
   nnoremap ,gc :Gcommit<CR>
