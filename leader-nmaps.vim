@@ -34,4 +34,4 @@ nnoremap ,l :bnext<CR>
 nnoremap ,j :bprevious<CR>
 
 " Quicker shell opening
-nnoremap ,s :terminal<CR>
+nnoremap ,t :terminal<CR>
