@@ -11,18 +11,19 @@ if !exists('g:vscode')
 endif
 
 " ,s{char}{char} to move to {char}{char}
+map  ,ms <Plug>(easymotion-bd-f2)
 if !exists('g:vscode')
   nmap ,ms <Plug>(easymotion-overwin-f2)
 endif
 
 " Move to line
-map ,mL <Plug>(easymotion-bd-jk)
+map ,ml <Plug>(easymotion-bd-jk)
 if !exists('g:vscode')
-  nmap ,mL <Plug>(easymotion-overwin-line)
+  nmap ,ml <Plug>(easymotion-overwin-line)
 endif
 
 " Move to word
 map  ,mw <Plug>(easymotion-bd-w)
 if !exists('g:vscode')
-  " nmap ,w <Plug>(easymotion-overwin-w)
+  " nmap ,mw <Plug>(easymotion-overwin-w)
 endif
