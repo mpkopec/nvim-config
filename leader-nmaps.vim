@@ -35,3 +35,7 @@ nnoremap ,j :bprevious<CR>
 
 " Quicker shell opening
 nnoremap ,t :terminal<CR>
+
+" Copy whole file to clipboard
+" memo: Ctrl-A
+nnoremap ,ca mmggVG"+y`m
