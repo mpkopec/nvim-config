@@ -55,10 +55,10 @@ else
   Plug 'alvan/vim-closetag'
 
   " Status Line
-  Plug 'glepnir/galaxyline.nvim'
+  "Plug 'glepnir/galaxyline.nvim'
 
   " Ranger file explorer in a floating window
-  Plug 'kevinhwang91/rnvimr'
+  "Plug 'kevinhwang91/rnvimr'
 
   " Git
   Plug 'airblade/vim-gitgutter'
@@ -67,7 +67,7 @@ else
   Plug 'rhysd/git-messenger.vim'
 
   " See what keys do like in emacs
-  Plug 'liuchengxu/vim-which-key'
+  "Plug 'liuchengxu/vim-which-key'
 
   " Zen mode
   Plug 'junegunn/goyo.vim'
