@@ -67,3 +67,6 @@ set expandtab
 
 " Always show the status line
 set laststatus=2
+
+" Show 80th column
+set colorcolumn=80
