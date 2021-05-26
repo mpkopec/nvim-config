@@ -1,9 +1,9 @@
 if !exists('g:vscode')
   " only if not in VS Code
-  nnoremap ,gs :Gstatus<CR>
-  nnoremap ,gc :Gcommit<CR>
+  nnoremap ,gs :Git<CR>
+  nnoremap ,gc :Git commit<CR>
   nnoremap ,gu :Git push<CR>
   nnoremap ,gd :Git pull<CR>
-  nnoremap ,gf :Gfetch<CR>
-  nnoremap ,gm :Gmerge<CR>
+  nnoremap ,gf :Git fetch<CR>
+  nnoremap ,gm :Git merge<CR>
 endif
