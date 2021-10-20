@@ -8,6 +8,16 @@ xnoremap <silent> <C-h> :call VSCodeNotify('workbench.action.navigateLeft')<CR>
 nnoremap <silent> <C-l> :call VSCodeNotify('workbench.action.navigateRight')<CR>
 xnoremap <silent> <C-l> :call VSCodeNotify('workbench.action.navigateRight')<CR>
 
+" Closing and saving
+nnoremap <silent> ,e :call VSCodeNotify('workbench.action.closeActiveEditor')<CR>
+xnoremap <silent> ,e :call VSCodeNotify('workbench.action.closeActiveEditor')<CR>
+nnoremap <silent> ,ee :call VSCodeNotify('workbench.action.closeEditorsInGroup')<CR>
+xnoremap <silent> ,ee :call VSCodeNotify('workbench.action.closeEditorsInGroup')<CR>
+nnoremap <silent> ,w :call VSCodeNotify('workbench.action.files.save')<CR>
+xnoremap <silent> ,w :call VSCodeNotify('workbench.action.files.save')<CR>
+nnoremap <silent> ,ww :call VSCodeNotify('workbench.action.files.saveAll')<CR>
+xnoremap <silent> ,ww :call VSCodeNotify('workbench.action.files.saveAll')<CR>
+
 nnoremap gr <Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>
 
 " Bind C-/ to vscode commentary since calling from vscode produces double comments due to multiple cursors
