@@ -25,6 +25,9 @@ Plug 'tpope/vim-repeat'
 " Highlight just yanked text
 Plug 'machakann/vim-highlightedyank'
 
+" Useful pair mappings (like moving lines, jumping, etc.)
+Plug 'tpope/vim-unimpaired'
+
 if exists('g:vscode')
   " Easy motion for VSCode
   Plug 'asvetliakov/vim-easymotion'
