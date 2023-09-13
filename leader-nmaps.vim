@@ -1,7 +1,7 @@
 " Fast saving
 nnoremap ,w :write<cr>
-nnoremap ,d :bdelete<cr>
-nnoremap ,dd :bdelete!<cr>
+nnoremap ,d :Bdelete<cr>
+nnoremap ,dd :Bdelete!<cr>
 " memo: exit
 nnoremap ,e :quit<cr>
 nnoremap ,wd :write<cr>:bdelete<cr>
