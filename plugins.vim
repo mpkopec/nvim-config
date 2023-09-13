@@ -32,6 +32,12 @@ if exists('g:vscode')
   " Easy motion for VSCode
   Plug 'asvetliakov/vim-easymotion'
 else
+  " Fuzzy finding, grepping and exploring
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+  Plug 'nvim-telescope/telescope-file-browser.nvim'
+
   " Colorscheme switcher
   Plug 'https://github.com/xolox/vim-misc.git'
   Plug 'https://github.com/xolox/vim-colorscheme-switcher.git'
@@ -80,9 +86,6 @@ else
 
   " Find and replace
   Plug 'https://github.com/brooth/far.vim'
-
-  " Smooth scroll
-  Plug 'psliwka/vim-smoothie'
 
   " Swap windows
   Plug 'wesQ3/vim-windowswap'
