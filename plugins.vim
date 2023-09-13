@@ -5,7 +5,6 @@ call plug#begin(stdpath('data') . '/plugged')
 
 " Themes
 Plug 'https://github.com/rafi/awesome-vim-colorschemes.git'
-Plug 'https://github.com/nightsense/office'
 
 " Better Comments
 Plug 'tpope/vim-commentary'
