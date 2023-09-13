@@ -70,3 +70,6 @@ set laststatus=2
 
 " Show 80th column
 set colorcolumn=80
+
+" Wait for 600ms for the next key in the mapping
+set timeoutlen=600
