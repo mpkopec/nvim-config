@@ -34,7 +34,7 @@ nnoremap ,l :bnext<CR>
 nnoremap ,j :bprevious<CR>
 
 " Quicker shell opening
-nnoremap ,t :terminal<CR>
+" nnoremap ,t :terminal<CR>
 
 " Copy whole file to clipboard
 " memo: Ctrl-A

@@ -39,7 +39,7 @@ else
   Plug 'nvim-telescope/telescope-file-browser.nvim'
   
   " Tag generation
-
+  Plug 'https://github.com/ludovicchabant/vim-gutentags'
 
   " Colorscheme switcher
   Plug 'https://github.com/xolox/vim-misc.git'
