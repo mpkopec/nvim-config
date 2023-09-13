@@ -6,6 +6,7 @@ exec 'source ' .  stdpath('config') . '/basic-nmaps.vim'
 exec 'source ' .  stdpath('config') . '/leader-nmaps.vim'
 exec 'source ' .  stdpath('config') . '/func.vim'
 
+exec 'source ' .  stdpath('config') . '/plugconf/auto-pairs.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/easymotion.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/firenvim.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/fugitive.vim'

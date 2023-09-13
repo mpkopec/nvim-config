@@ -37,6 +37,9 @@ else
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
   Plug 'nvim-telescope/telescope-file-browser.nvim'
+  
+  " Tag generation
+
 
   " Colorscheme switcher
   Plug 'https://github.com/xolox/vim-misc.git'
