@@ -66,9 +66,6 @@ else
   " Status Line
   "Plug 'glepnir/galaxyline.nvim'
 
-  " Ranger file explorer in a floating window
-  "Plug 'kevinhwang91/rnvimr'
-
   " Git
   Plug 'airblade/vim-gitgutter'
   Plug 'https://github.com/tpope/vim-fugitive.git'
