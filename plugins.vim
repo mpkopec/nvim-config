@@ -26,11 +26,11 @@ Plug 'tpope/vim-repeat'
 Plug 'machakann/vim-highlightedyank'
 
 " Useful pair mappings (like moving lines, jumping, etc.)
-Plug 'tpope/vim-unimpaired'
+" Plug 'tpope/vim-unimpaired'
 
 if exists('g:vscode')
   " Easy motion for VSCode
-  Plug 'asvetliakov/vim-easymotion'
+  " Plug 'asvetliakov/vim-easymotion'
 else
   " Fuzzy finding, grepping and exploring
   Plug 'nvim-lua/plenary.nvim'
@@ -49,7 +49,7 @@ else
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
   " Easymotion
-  Plug 'easymotion/vim-easymotion'
+  " Plug 'easymotion/vim-easymotion'
 
   " Have the file system follow you around
   Plug 'airblade/vim-rooter'
@@ -76,7 +76,7 @@ else
   "Plug 'liuchengxu/vim-which-key'
 
   " Zen mode
-  Plug 'junegunn/goyo.vim'
+  " Plug 'junegunn/goyo.vim'
 
   " undo time travel
   Plug 'mbbill/undotree'
@@ -89,6 +89,9 @@ else
 
   " Intuitive buffer closing
   Plug 'moll/vim-bbye'
+
+  " Verilog/SystemVerilog
+  Plug 'vhda/verilog_systemverilog.vim'
 
   " Neovim in Browser
   " For later

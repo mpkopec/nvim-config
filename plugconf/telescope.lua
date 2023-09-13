@@ -31,7 +31,9 @@ require("telescope").setup {
         },
         ["n"] = {
           -- your custom normal mode mappings
-          ["l"] = fb_actions.open
+          -- ["l"] = fb_actions.open,
+          ["h"] = fb_actions.goto_parent_dir,
+          ["H"] = fb_actions.toggle_hidden,
         },
       },
     },
