@@ -12,6 +12,8 @@ exec 'source ' .  stdpath('config') . '/plugconf/firenvim.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/fugitive.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/gitgutter.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/highlightyank.vim'
+exec 'source ' .  stdpath('config') . '/plugconf/jedi-vim.vim'
+exec 'source ' .  stdpath('config') . '/plugconf/luasnip.lua'
 exec 'source ' .  stdpath('config') . '/plugconf/switcher.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/telescope.lua'
 

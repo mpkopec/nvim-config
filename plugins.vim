@@ -40,6 +40,12 @@ else
   " Tag generation
   Plug 'https://github.com/ludovicchabant/vim-gutentags'
 
+  " Snippet plugin
+  Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} 
+
+  " Python autocomplete
+  Plug 'https://github.com/davidhalter/jedi-vim'
+
   " Colorscheme switcher
   Plug 'https://github.com/xolox/vim-misc.git'
   Plug 'https://github.com/xolox/vim-colorscheme-switcher.git'
