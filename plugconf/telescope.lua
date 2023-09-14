@@ -1,4 +1,9 @@
-vim.keymap.set("n", ",tt",  ":Telescope<CR>")
+vim.keymap.set("n", ",t",  ":Telescope<CR>")
+vim.keymap.set("n", ",tt",  ":Telescope tags<CR>")
+vim.keymap.set("n", ",tr",  ":Telescope registers<CR>")
+vim.keymap.set("n", ",tb",  ":Telescope buffers<CR>")
+vim.keymap.set("n", ",tch",  ":Telescope command_history<CR>")
+vim.keymap.set("n", ",tgc",  ":Telescope git_commits<CR>")
 vim.keymap.set("n", "<C-p>", ":Telescope find_files<CR>")
 
 require('telescope').load_extension('fzf')
