@@ -41,7 +41,13 @@ else
   Plug 'https://github.com/ludovicchabant/vim-gutentags'
 
   " Snippet plugin
-  Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} 
+  " Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} 
+  " exec 'source ' .  stdpath('config') . '/plugconf/luasnip.lua'
+  if has('python3')
+    Plug 'https://github.com/SirVer/ultisnips'
+    Plug 'https://github.com/mpkopec/vim-snippets'
+    exec 'source ' .  stdpath('config') . '/plugconf/ultisnips.vim'
+  endif
 
   " Python autocomplete
   Plug 'https://github.com/davidhalter/jedi-vim'
@@ -57,7 +63,8 @@ else
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
   " Easymotion
-  " Plug 'easymotion/vim-easymotion'
+  Plug 'easymotion/vim-easymotion'
+  exec 'source ' .  stdpath('config') . '/plugconf/easymotion.vim'
 
   " Have the file system follow you around
   Plug 'airblade/vim-rooter'
