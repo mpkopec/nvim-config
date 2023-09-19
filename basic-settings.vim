@@ -37,15 +37,6 @@ vmap k gk
 nmap j gj
 nmap k gk
 
-inoremap <C-h> <Left>
-inoremap <C-j> <C-o>gj
-inoremap <C-k> <C-o>gk
-inoremap <C-l> <Right>
-cnoremap <C-h> <Left>
-cnoremap <C-j> <Down>
-cnoremap <C-k> <Up>
-cnoremap <C-l> <Right>
-
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
@@ -68,8 +59,9 @@ set expandtab
 " Always show the status line
 set laststatus=2
 
-" Show 80th column
+" Show and wrap at 80th column
 set colorcolumn=80
+set textwidth=80
 
 " Wait for 600ms for the next key in the mapping
 set timeoutlen=600
