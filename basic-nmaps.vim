@@ -6,5 +6,6 @@ nnoremap <C-l> <C-w>l
 
 " Replace Ctrl-n, Ctrl-p with Ctrl-j and Ctrl-k
 " TODO After installing a proper completion engine, this needs to be reverted
-inoremap <C-j> <C-x><C-n>
+
+inoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<C-x><C-n>"
 inoremap <C-k> <C-p>
