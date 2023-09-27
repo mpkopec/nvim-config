@@ -8,4 +8,5 @@ nnoremap <C-l> <C-w>l
 " TODO After installing a proper completion engine, this needs to be reverted
 
 inoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<C-x><C-n>"
-inoremap <C-k> <C-p>
+inoremap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<C-x><C-p>"
+inoremap <expr><C-l>  pumvisible() ? "\<C-y>" : "\<C-l>"

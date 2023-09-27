@@ -15,6 +15,7 @@ exec 'source ' .  stdpath('config') . '/plugconf/highlightyank.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/jedi-vim.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/switcher.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/telescope.lua'
+exec 'source ' .  stdpath('config') . '/plugconf/verilog_systemverilog.vim'
 
 if exists('g:vscode')
   " VS Code extension
