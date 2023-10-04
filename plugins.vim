@@ -40,13 +40,16 @@ else
   " Tag generation
   Plug 'https://github.com/ludovicchabant/vim-gutentags'
 
-  " Snippet plugin
+  " Snippet and completion plugin
   " Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} 
   " exec 'source ' .  stdpath('config') . '/plugconf/luasnip.lua'
   if has('python3')
     Plug 'https://github.com/SirVer/ultisnips'
     Plug 'https://github.com/mpkopec/vim-snippets'
     exec 'source ' .  stdpath('config') . '/plugconf/ultisnips.vim'
+    
+    Plug 'https://github.com/ycm-core/YouCompleteMe'
+    exec 'source ' .  stdpath('config') . '/plugconf/ycm.vim'
   endif
 
   " Python autocomplete
