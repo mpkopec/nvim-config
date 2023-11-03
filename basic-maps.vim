@@ -10,3 +10,6 @@ nnoremap <C-l> <C-w>l
 inoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<C-x><C-n>"
 inoremap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<C-x><C-p>"
 inoremap <expr><C-l>  pumvisible() ? "\<C-y>" : "\<C-l>"
+
+" Highlight but not jump
+nnoremap * :keepjumps normal! mi*`i<CR>
