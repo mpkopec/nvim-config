@@ -52,9 +52,6 @@ else
     exec 'source ' .  stdpath('config') . '/plugconf/ycm.vim'
   endif
 
-  " Python autocomplete
-  Plug 'https://github.com/davidhalter/jedi-vim'
-
   " Colorscheme switcher
   Plug 'https://github.com/xolox/vim-misc.git'
   Plug 'https://github.com/xolox/vim-colorscheme-switcher.git'
