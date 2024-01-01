@@ -13,3 +13,6 @@ inoremap <expr><C-l>  pumvisible() ? "\<C-y>" : "\<C-l>"
 
 " Highlight but not jump
 nnoremap * :keepjumps normal! mi*`i<CR>
+
+" For verilog state machines sequential logic
+vnoremap ,rtn :s/\(\s\+\)\(\(\w\+\)_reg\)\(\s\+\)<=\(\s\+\)\w\+;/\1\2\4<=\5\3_next;<CR>
