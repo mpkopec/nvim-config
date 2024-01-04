@@ -54,6 +54,9 @@ else
     
     Plug 'https://github.com/ycm-core/YouCompleteMe'
     exec 'source ' .  stdpath('config') . '/plugconf/ycm.vim'
+
+    Plug 'pixelneo/vim-python-docstring'
+    exec 'source ' .  stdpath('config') . '/plugconf/vim-python-docstring.vim'
   endif
 
   " Colorscheme switcher
