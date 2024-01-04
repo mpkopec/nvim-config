@@ -1,2 +1,3 @@
 nnoremap ,nf :NERDTreeFind<CR>
-nnoremap ,nt :NERDTreeToggle<CR>
+nnoremap ,nt :pwd \| NERDTree<CR>
+nnoremap ,nc :NERDTreeClose<CR>
