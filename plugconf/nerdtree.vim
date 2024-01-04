@@ -1,2 +1,2 @@
-nnoremap ,nf :NERDTreeFocus<CR>
+nnoremap ,nf :NERDTreeFind<CR>
 nnoremap ,nt :NERDTreeToggle<CR>
