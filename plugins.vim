@@ -24,6 +24,10 @@ Plug 'tpope/vim-repeat'
 " Highlight just yanked text
 Plug 'machakann/vim-highlightedyank'
 
+" NERDTree
+Plug 'preservim/nerdtree' |
+  \ Plug 'Xuyuanp/nerdtree-git-plugin'
+
 " Useful pair mappings (like moving lines, jumping, etc.)
 " Plug 'tpope/vim-unimpaired'
 
@@ -73,7 +77,7 @@ else
   Plug 'sheerun/vim-polyglot'
 
   " Auto pairs for '(' '[' '{'
-  Plug 'jiangmiao/auto-pairs'
+  Plug 'cohama/lexima.vim'
 
   " Closetags
   Plug 'alvan/vim-closetag'

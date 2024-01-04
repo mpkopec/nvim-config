@@ -60,7 +60,7 @@ set expandtab
 set laststatus=2
 
 " Show and wrap at 80th column
-set colorcolumn=80
+set colorcolumn=81
 set textwidth=80
 
 " Wait for 600ms for the next key in the mapping
