@@ -17,7 +17,9 @@ set cmdheight=2
 set cursorline
 
 " Turn on the wild menu
-set wildmenu
+set nowildmenu
+set wildoptions=
+set wildmode=longest,list
 
 " By default, ignore case
 set ignorecase
