@@ -52,8 +52,11 @@ else
     Plug 'https://github.com/mpkopec/vim-snippets'
     exec 'source ' .  stdpath('config') . '/plugconf/ultisnips.vim'
     
-    Plug 'https://github.com/ycm-core/YouCompleteMe'
-    exec 'source ' .  stdpath('config') . '/plugconf/ycm.vim'
+    " Plug 'https://github.com/ycm-core/YouCompleteMe'
+    " exec 'source ' .  stdpath('config') . '/plugconf/ycm.vim'
+
+    Plug 'https://github.com/davidhalter/jedi-vim'
+    exec 'source ' .  stdpath('config') . '/plugconf/jedi-vim.vim'
 
     Plug 'pixelneo/vim-python-docstring'
     exec 'source ' .  stdpath('config') . '/plugconf/vim-python-docstring.vim'
