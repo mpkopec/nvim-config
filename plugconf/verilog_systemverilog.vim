@@ -5,3 +5,8 @@ autocmd FileType verilog_systemverilog nnoremap <buffer> <C-]> :VerilogFollowIns
 autocmd FileType verilog_systemverilog nnoremap <buffer> ,fp :VerilogFollowPort<cr>
 
 " For instantiation in the future
+
+autocmd BufEnter *.v set filetype=verilog_systemverilog
+autocmd BufEnter *.v set shiftwidth=2
+autocmd BufEnter *.sv set filetype=verilog_systemverilog
+autocmd BufEnter *.sv set shiftwidth=2
