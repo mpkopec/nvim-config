@@ -4,11 +4,12 @@
 autocmd FileType verilog_systemverilog nnoremap <buffer> <C-]> :VerilogFollowInstance<cr>
 autocmd FileType verilog_systemverilog nnoremap <buffer> ,fp :VerilogFollowPort<cr>
 
+autocmd FileType verilog_systemverilog setl commentstring=//\ %s
+autocmd FileType verilog_systemverilog setl commentstring=//\ %s
+
 " For instantiation in the future
 
 autocmd BufEnter *.v set filetype=verilog_systemverilog
 autocmd BufEnter *.v set shiftwidth=2
 autocmd BufEnter *.sv set filetype=verilog_systemverilog
 autocmd BufEnter *.sv set shiftwidth=2
-
-set commentstring="//"
