@@ -10,3 +10,5 @@ autocmd BufEnter *.v set filetype=verilog_systemverilog
 autocmd BufEnter *.v set shiftwidth=2
 autocmd BufEnter *.sv set filetype=verilog_systemverilog
 autocmd BufEnter *.sv set shiftwidth=2
+
+set commentstring="//"
