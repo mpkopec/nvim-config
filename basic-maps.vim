@@ -12,12 +12,12 @@ nnoremap <C-l> <C-w>l
 inoremap <expr><C-l>  pumvisible() ? "\<C-y>" : "\<C-l>"
 
 " Moving lines and groups of them
-nnoremap <silent> <C-i> :m .+1<CR>==
-inoremap <silent> <C-i> <Esc>:m .+1<CR>==gi
-vnoremap <silent> <C-i> :m '>+1<CR>gv=gv
-nnoremap <silent> <C-u> :m .-2<CR>==
-inoremap <silent> <C-u> <Esc>:m .-2<CR>==gi
-vnoremap <silent> <C-u> :m '<-2<CR>gv=gv
+nnoremap <silent> <C-I> :m .+1<CR>==
+inoremap <silent> <C-I> <Esc>:m .+1<CR>==gi
+vnoremap <silent> <C-I> :m '>+1<CR>gv=gv
+nnoremap <silent> <C-U> :m .-2<CR>==
+inoremap <silent> <C-U> <Esc>:m .-2<CR>==gi
+vnoremap <silent> <C-U> :m '<-2<CR>gv=gv
 
 " Remove trailing whitespace
 nnoremap ,ts mm:%s/\s\+$//<cr>:noh<cr>`m
