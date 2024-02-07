@@ -8,6 +8,8 @@ autocmd FileType verilog_systemverilog setl commentstring=//\ %s
 autocmd FileType verilog_systemverilog setl commentstring=//\ %s
 
 " For instantiation in the future
+" For automatic parameter assignment to declaration:
+" '<,'>s/\.\(\w\+\)(\(\("\w\+"\)\|\d[.0-9]*\))/parameter \1 = \2/
 
 autocmd BufEnter *.v set filetype=verilog_systemverilog
 autocmd BufEnter *.v set shiftwidth=2
