@@ -24,9 +24,8 @@ Plug 'tpope/vim-repeat'
 " Highlight just yanked text
 Plug 'machakann/vim-highlightedyank'
 
-" NERDTree
-Plug 'preservim/nerdtree' |
-  \ Plug 'Xuyuanp/nerdtree-git-plugin'
+" Jinja2 templates
+Plug 'lepture/vim-jinja'
 
 " Useful pair mappings (like moving lines, jumping, etc.)
 " Plug 'tpope/vim-unimpaired'
@@ -40,6 +39,10 @@ else
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
   Plug 'nvim-telescope/telescope-file-browser.nvim'
+
+  " NERDTree
+  Plug 'preservim/nerdtree' |
+    \ Plug 'Xuyuanp/nerdtree-git-plugin'
   
   " Tag generation
   Plug 'https://github.com/ludovicchabant/vim-gutentags'
