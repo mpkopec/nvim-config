@@ -1,6 +1,12 @@
 let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 
+" Setup YCM for latex
+if !exists('g:ycm_semantic_triggers')
+  let g:ycm_semantic_triggers = {}
+endif
+au VimEnter * let g:ycm_semantic_triggers.tex=g:vimtex#re#youcompleteme
+
 let maplocalleader = ""
 
 " Remap the standard commands to , + something, but do not set the comma as
