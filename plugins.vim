@@ -27,6 +27,9 @@ Plug 'machakann/vim-highlightedyank'
 " Jinja2 templates
 Plug 'lepture/vim-jinja'
 
+" LaTeX support
+Plug 'lervag/vimtex'
+
 " Useful pair mappings (like moving lines, jumping, etc.)
 " Plug 'tpope/vim-unimpaired'
 

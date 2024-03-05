@@ -17,6 +17,7 @@ exec 'source ' .  stdpath('config') . '/plugconf/nerdtree.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/switcher.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/telescope.lua'
 exec 'source ' .  stdpath('config') . '/plugconf/verilog_systemverilog.vim'
+exec 'source ' .  stdpath('config') . '/plugconf/vimtex.vim'
 
 if exists('g:vscode')
   " VS Code extension
