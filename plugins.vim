@@ -15,6 +15,9 @@ Plug 'tpope/vim-surround'
 " Change dates fast
 Plug 'tpope/vim-speeddating'
 
+" Change case to title case
+Plug 'christoomey/vim-titlecase'
+
 " Convert binary, hex, etc..
 Plug 'glts/vim-radical'
 

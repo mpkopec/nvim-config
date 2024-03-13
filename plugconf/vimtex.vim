@@ -1,5 +1,9 @@
 let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+" Do not focus the PDF viewer automatically, or rather do not issue opening the
+" viewer command each time the compilation is done. Good viewers refresh
+" themselves.
+let g:vimtex_view_automatic = 0
 
 " Setup YCM for latex
 if !exists('g:ycm_semantic_triggers')
