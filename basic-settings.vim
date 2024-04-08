@@ -65,3 +65,7 @@ set textwidth=88
 
 " Wait for 600ms for the next key in the mapping
 set timeoutlen=600
+
+" Formatoptions
+set formatoptions-=t
+set formatoptions+=cro/qn1j
