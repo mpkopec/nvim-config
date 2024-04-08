@@ -90,6 +90,9 @@ else
 
   " Better Syntax Support
   Plug 'sheerun/vim-polyglot'
+  
+  " Different language formatter support
+  Plug 'vim-autoformat/vim-autoformat'
 
   " Auto pairs for '(' '[' '{'
   Plug 'cohama/lexima.vim'
