@@ -78,6 +78,9 @@ else
   " Text Navigation
   Plug 'unblevable/quick-scope'
 
+  " OpenSCAD
+  Plug 'sirtaj/vim-openscad'
+
   " NeoVim in Firefox
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
