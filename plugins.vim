@@ -61,7 +61,7 @@ else
     Plug 'https://github.com/mpkopec/vim-snippets'
     exec 'source ' .  stdpath('config') . '/plugconf/ultisnips.vim'
     
-    Plug 'https://github.com/ycm-core/YouCompleteMe'
+    Plug 'https://github.com/ycm-core/YouCompleteMe', { 'do': 'python3 install.py' }
     exec 'source ' .  stdpath('config') . '/plugconf/ycm.vim'
 
     " Plug 'https://github.com/davidhalter/jedi-vim'
