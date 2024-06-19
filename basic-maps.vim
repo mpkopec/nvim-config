@@ -18,6 +18,10 @@ nnoremap <silent> <A-i> :m .-2<CR>
 inoremap <silent> <A-i> <Esc>:m .-2<CR>gi
 vnoremap <silent> <A-i> :m '<-2<CR>gv
 
+" Better jk navigation with soft-wrapped lines
+nnoremap <expr> k v:count == 0 ? 'gk' : "\<Esc>".v:count.'k'
+nnoremap <expr> j v:count == 0 ? 'gj' : "\<Esc>".v:count.'j'
+
 " Remove trailing whitespace
 nnoremap ,ts mm:%s/\s\+$//<cr>:noh<cr>`m
 
