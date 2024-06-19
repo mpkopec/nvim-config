@@ -133,10 +133,6 @@ else
   " Verilog/SystemVerilog
   Plug 'vhda/verilog_systemverilog.vim'
 
-  " Neovim in Browser
-  " For later
-  "Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-
   " Markdown Preview
   " NN in the pure editor
   "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }

@@ -5,6 +5,8 @@ let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 " themselves.
 let g:vimtex_view_automatic = 0
 
+let g:vimtex_format_enabled = 0
+
 " Setup YCM for latex
 if !exists('g:ycm_semantic_triggers')
   let g:ycm_semantic_triggers = {}
