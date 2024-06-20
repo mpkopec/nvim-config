@@ -67,6 +67,68 @@ if has('python3')
   exec 'source ' .  stdpath('config') . '/plugconf/vim-python-docstring.vim'
 endif
 
+" Text Navigation
+Plug 'unblevable/quick-scope'
+
+" OpenSCAD
+Plug 'sirtaj/vim-openscad'
+
+" NeoVim in Firefox
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
+" Easymotion
+Plug 'easymotion/vim-easymotion'
+exec 'source ' .  stdpath('config') . '/plugconf/easymotion.vim'
+
+" Have the file system follow you around
+Plug 'airblade/vim-rooter'
+
+" Better Syntax Support
+Plug 'sheerun/vim-polyglot'
+
+" Different language formatter support
+Plug 'vim-autoformat/vim-autoformat'
+
+" Auto pairs for '(' '[' '{'
+Plug 'cohama/lexima.vim'
+
+" Closetags
+Plug 'alvan/vim-closetag'
+
+" Status Line
+"Plug 'glepnir/galaxyline.nvim'
+
+" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'junegunn/gv.vim'
+Plug 'rhysd/git-messenger.vim'
+
+" See what keys do like in emacs
+"Plug 'liuchengxu/vim-which-key'
+
+" Zen mode
+" Plug 'junegunn/goyo.vim'
+
+" undo time travel
+Plug 'mbbill/undotree'
+
+" Find and replace
+Plug 'https://github.com/brooth/far.vim'
+
+" Swap windows
+Plug 'wesQ3/vim-windowswap'
+
+" Intuitive buffer closing
+Plug 'moll/vim-bbye'
+
+" Verilog/SystemVerilog
+Plug 'vhda/verilog_systemverilog.vim'
+
+" Markdown Preview
+" NN in the pure editor
+"Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
+
 " Colorscheme switcher
 Plug 'https://github.com/xolox/vim-misc.git'
 Plug 'https://github.com/xolox/vim-colorscheme-switcher.git'
