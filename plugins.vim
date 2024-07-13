@@ -47,7 +47,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 
 " NERDTree
 Plug 'preservim/nerdtree' |
-  \ Plug 'Xuyuanp/nerdtree-git-plugin'
+      \ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Tag generation
 Plug 'https://github.com/ludovicchabant/vim-gutentags'
