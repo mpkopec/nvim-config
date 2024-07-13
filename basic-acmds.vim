@@ -14,3 +14,10 @@ for f in file_patterns_wrap
   execute "autocmd FileType " . f . " setlocal wrap"
   execute "autocmd FileType " . f . " setlocal spell"
 endfor
+
+" Indentation guides
+set list
+" Update the guides after every change to the shiftwidth option
+autocmd OptionSet shiftwidth execute 'setlocal listchars=trail:·,tab:│\ ,multispace:┆' . repeat('\ ', &sw - 1)
+" Start the guides after loading the buffer as well
+autocmd BufReadPost * execute 'setlocal listchars=trail:·,tab:│\ ,multispace:┆' . repeat('\ ', &sw - 1)
