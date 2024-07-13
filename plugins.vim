@@ -36,110 +36,164 @@ Plug 'lervag/vimtex'
 " Useful pair mappings (like moving lines, jumping, etc.)
 " Plug 'tpope/vim-unimpaired'
 
-if exists('g:vscode')
-  " Easy motion for VSCode
-  " Plug 'asvetliakov/vim-easymotion'
-else
-  " Fuzzy finding, grepping and exploring
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'
-  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-  Plug 'nvim-telescope/telescope-file-browser.nvim'
+" Fuzzy finding, grepping and exploring
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-file-browser.nvim'
 
-  " Indentation guides
-  Plug 'nathanaelkane/vim-indent-guides'
+" Indentation guides
+Plug 'nathanaelkane/vim-indent-guides'
 
-  " NERDTree
-  Plug 'preservim/nerdtree' |
-    \ Plug 'Xuyuanp/nerdtree-git-plugin'
-  
-  " Tag generation
-  Plug 'https://github.com/ludovicchabant/vim-gutentags'
+" NERDTree
+Plug 'preservim/nerdtree' |
+  \ Plug 'Xuyuanp/nerdtree-git-plugin'
 
-  " Snippet and completion plugin
-  " Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} 
-  " exec 'source ' .  stdpath('config') . '/plugconf/luasnip.lua'
-  if has('python3')
-    Plug 'https://github.com/SirVer/ultisnips'
-    Plug 'https://github.com/mpkopec/vim-snippets'
-    exec 'source ' .  stdpath('config') . '/plugconf/ultisnips.vim'
-    
-    Plug 'https://github.com/ycm-core/YouCompleteMe', { 'do': 'python3 install.py' }
-    exec 'source ' .  stdpath('config') . '/plugconf/ycm.vim'
+" Tag generation
+Plug 'https://github.com/ludovicchabant/vim-gutentags'
 
-    " Plug 'https://github.com/davidhalter/jedi-vim'
-    " exec 'source ' .  stdpath('config') . '/plugconf/jedi-vim.vim'
+" Snippet and completion plugin
+" Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} 
+" exec 'source ' .  stdpath('config') . '/plugconf/luasnip.lua'
+if has('python3')
+  Plug 'https://github.com/SirVer/ultisnips'
+  Plug 'https://github.com/mpkopec/vim-snippets'
+  exec 'source ' .  stdpath('config') . '/plugconf/ultisnips.vim'
 
-    Plug 'pixelneo/vim-python-docstring'
-    exec 'source ' .  stdpath('config') . '/plugconf/vim-python-docstring.vim'
-  endif
+  Plug 'https://github.com/ycm-core/YouCompleteMe', { 'do': 'python3 install.py' }
+  exec 'source ' .  stdpath('config') . '/plugconf/ycm.vim'
 
-  " Colorscheme switcher
-  Plug 'https://github.com/xolox/vim-misc.git'
-  Plug 'https://github.com/xolox/vim-colorscheme-switcher.git'
+  " Plug 'https://github.com/davidhalter/jedi-vim'
+  " exec 'source ' .  stdpath('config') . '/plugconf/jedi-vim.vim'
 
-  " Text Navigation
-  Plug 'unblevable/quick-scope'
-
-  " OpenSCAD
-  Plug 'sirtaj/vim-openscad'
-
-  " NeoVim in Firefox
-  Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-
-  " Easymotion
-  Plug 'easymotion/vim-easymotion'
-  exec 'source ' .  stdpath('config') . '/plugconf/easymotion.vim'
-
-  " Have the file system follow you around
-  Plug 'airblade/vim-rooter'
-
-  " Better Syntax Support
-  Plug 'sheerun/vim-polyglot'
-  
-  " Different language formatter support
-  Plug 'vim-autoformat/vim-autoformat'
-
-  " Auto pairs for '(' '[' '{'
-  Plug 'cohama/lexima.vim'
-
-  " Closetags
-  Plug 'alvan/vim-closetag'
-
-  " Status Line
-  "Plug 'glepnir/galaxyline.nvim'
-
-  " Git
-  Plug 'airblade/vim-gitgutter'
-  Plug 'https://github.com/tpope/vim-fugitive.git'
-  Plug 'junegunn/gv.vim'
-  Plug 'rhysd/git-messenger.vim'
-
-  " See what keys do like in emacs
-  "Plug 'liuchengxu/vim-which-key'
-
-  " Zen mode
-  " Plug 'junegunn/goyo.vim'
-
-  " undo time travel
-  Plug 'mbbill/undotree'
-
-  " Find and replace
-  Plug 'https://github.com/brooth/far.vim'
-
-  " Swap windows
-  Plug 'wesQ3/vim-windowswap'
-
-  " Intuitive buffer closing
-  Plug 'moll/vim-bbye'
-
-  " Verilog/SystemVerilog
-  Plug 'vhda/verilog_systemverilog.vim'
-
-  " Markdown Preview
-  " NN in the pure editor
-  "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
+  Plug 'pixelneo/vim-python-docstring'
+  exec 'source ' .  stdpath('config') . '/plugconf/vim-python-docstring.vim'
 endif
+
+" Text Navigation
+Plug 'unblevable/quick-scope'
+
+" OpenSCAD
+Plug 'sirtaj/vim-openscad'
+
+" NeoVim in Firefox
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
+" Easymotion
+Plug 'easymotion/vim-easymotion'
+exec 'source ' .  stdpath('config') . '/plugconf/easymotion.vim'
+
+" Have the file system follow you around
+Plug 'airblade/vim-rooter'
+
+" Better Syntax Support
+Plug 'sheerun/vim-polyglot'
+
+" Different language formatter support
+Plug 'vim-autoformat/vim-autoformat'
+
+" Auto pairs for '(' '[' '{'
+Plug 'cohama/lexima.vim'
+
+" Closetags
+Plug 'alvan/vim-closetag'
+
+" Status Line
+"Plug 'glepnir/galaxyline.nvim'
+
+" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'junegunn/gv.vim'
+Plug 'rhysd/git-messenger.vim'
+
+" See what keys do like in emacs
+"Plug 'liuchengxu/vim-which-key'
+
+" Zen mode
+" Plug 'junegunn/goyo.vim'
+
+" undo time travel
+Plug 'mbbill/undotree'
+
+" Find and replace
+Plug 'https://github.com/brooth/far.vim'
+
+" Swap windows
+Plug 'wesQ3/vim-windowswap'
+
+" Intuitive buffer closing
+Plug 'moll/vim-bbye'
+
+" Verilog/SystemVerilog
+Plug 'vhda/verilog_systemverilog.vim'
+
+" Markdown Preview
+" NN in the pure editor
+"Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
+
+" Colorscheme switcher
+Plug 'https://github.com/xolox/vim-misc.git'
+Plug 'https://github.com/xolox/vim-colorscheme-switcher.git'
+
+" Text Navigation
+Plug 'unblevable/quick-scope'
+
+" NeoVim in Firefox
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
+" Easymotion
+Plug 'easymotion/vim-easymotion'
+exec 'source ' .  stdpath('config') . '/plugconf/easymotion.vim'
+
+" Have the file system follow you around
+Plug 'airblade/vim-rooter'
+
+" Better Syntax Support
+Plug 'sheerun/vim-polyglot'
+
+" Different language formatter support
+Plug 'vim-autoformat/vim-autoformat'
+
+" Auto pairs for '(' '[' '{'
+Plug 'cohama/lexima.vim'
+
+" Closetags
+Plug 'alvan/vim-closetag'
+
+" Status Line
+"Plug 'glepnir/galaxyline.nvim'
+
+" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'junegunn/gv.vim'
+Plug 'rhysd/git-messenger.vim'
+
+" See what keys do like in emacs
+"Plug 'liuchengxu/vim-which-key'
+
+" Zen mode
+" Plug 'junegunn/goyo.vim'
+
+" undo time travel
+Plug 'mbbill/undotree'
+
+" Find and replace
+Plug 'https://github.com/brooth/far.vim'
+
+" Swap windows
+Plug 'wesQ3/vim-windowswap'
+
+" Intuitive buffer closing
+Plug 'moll/vim-bbye'
+
+" Verilog/SystemVerilog
+Plug 'vhda/verilog_systemverilog.vim'
+
+" Markdown Preview
+" NN in the pure editor
+"Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 
 call plug#end()
 
