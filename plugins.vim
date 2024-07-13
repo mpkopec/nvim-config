@@ -46,6 +46,9 @@ else
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
   Plug 'nvim-telescope/telescope-file-browser.nvim'
 
+  " Indentation guides
+  Plug 'nathanaelkane/vim-indent-guides'
+
   " NERDTree
   Plug 'preservim/nerdtree' |
     \ Plug 'Xuyuanp/nerdtree-git-plugin'
