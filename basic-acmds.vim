@@ -12,4 +12,5 @@ endfor
 let file_patterns_wrap = ["tex", "bib"]
 for f in file_patterns_wrap
   execute "autocmd FileType " . f . " setlocal wrap"
+  execute "autocmd FileType " . f . " setlocal spell"
 endfor
