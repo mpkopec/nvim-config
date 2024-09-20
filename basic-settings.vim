@@ -29,7 +29,7 @@ set incsearch
 set magic
 
 " Set line wrapping and its navigation
-set wrap linebreak nolist
+set nowrap linebreak
 set showbreak=…
 
 vmap j gj
