@@ -3,6 +3,9 @@
 set termguicolors
 colorscheme carbonized-dark
 
+" Set mouse only for normal mode
+set mouse=n
+
 " Show line numbers properly
 set number
 set relativenumber
