@@ -3,6 +3,9 @@
 set termguicolors
 colorscheme carbonized-dark
 
+" Filetype plugin
+filetype on
+
 " Show line numbers properly
 set number
 set relativenumber

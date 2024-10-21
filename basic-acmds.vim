@@ -15,12 +15,17 @@ for f in file_patterns_wrap
   execute "autocmd FileType " . f . " setlocal spell"
 endfor
 
+autocmd FileType python set shiftwidth=4
+autocmd FileType python set tabstop=4
+autocmd FileType python set sts=4
+autocmd FileType python set expandtab
+
 " Indentation guides
 set list
 " Update the guides after every change to the shiftwidth option
 autocmd OptionSet shiftwidth execute 'setlocal listchars=trail:·,tab:│\ ,leadmultispace:┆' . repeat('\ ', &sw - 1)
 " Start the guides after loading the buffer as well
-autocmd BufReadPost * execute 'setlocal listchars=trail:·,tab:│\ ,leadmultispace:┆' . repeat('\ ', &sw - 1)
+autocmd BufWinEnter * execute 'setlocal listchars=trail:·,tab:│\ ,leadmultispace:┆' . repeat('\ ', &sw - 1)
 
-autocmd BufReadPost *.tex execute "set nolist"
-autocmd BufReadPost *.bib execute "set nolist"
+autocmd BufReadPost *.tex execute "setlocal nolist"
+autocmd BufReadPost *.bib execute "setlocal nolist"

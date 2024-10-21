@@ -1,6 +1,6 @@
-set shiftwidth=4
-set tabstop=4
-set sts=4
-set expandtab
-set textwidth=88
+setlocal shiftwidth=4
+setlocal tabstop=4
+setlocal sts=4
+setlocal expandtab
+setlocal textwidth=88
 
