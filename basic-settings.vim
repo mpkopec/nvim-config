@@ -6,6 +6,9 @@ colorscheme carbonized-dark
 " Filetype plugin
 filetype on
 
+" Set mouse only for normal mode
+set mouse=n
+
 " Show line numbers properly
 set number
 set relativenumber
@@ -35,10 +38,10 @@ set magic
 set nowrap linebreak
 set showbreak=…
 
-vmap j gj
-vmap k gk
-nmap j gj
-nmap k gk
+nnoremap <expr> j v:count == 0 ? 'gj' : "\<Esc>".v:count.'j'
+nnoremap <expr> j v:count == 0 ? 'gj' : "\<Esc>".v:count.'j'
+vnoremap <expr> k v:count == 0 ? 'gk' : "\<Esc>".v:count.'k'
+vnoremap <expr> k v:count == 0 ? 'gk' : "\<Esc>".v:count.'k'
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
