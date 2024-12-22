@@ -5,7 +5,6 @@ autocmd FileType verilog_systemverilog nnoremap <buffer> ,fi :VerilogFollowInsta
 autocmd FileType verilog_systemverilog nnoremap <buffer> ,fp :VerilogFollowPort<cr>
 
 autocmd FileType verilog_systemverilog setl commentstring=//\ %s
-autocmd FileType verilog_systemverilog setl commentstring=//\ %s
 
 " For instantiation in the future
 " For automatic parameter assignment to declaration:
