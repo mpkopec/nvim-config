@@ -29,3 +29,6 @@ autocmd BufWinEnter * execute 'setlocal listchars=trail:·,tab:│\ ,leadmultisp
 
 autocmd BufReadPost *.tex execute "setlocal nolist"
 autocmd BufReadPost *.bib execute "setlocal nolist"
+
+autocmd FileType openscad setl commentstring=//\ %s
+
