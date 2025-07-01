@@ -1,5 +1,6 @@
 " Fast saving
 nnoremap ,w :write<cr>
+nnoremap ,wa :wall<cr>
 nnoremap ,d :Bdelete<cr>
 nnoremap ,dd :Bdelete!<cr>
 " memo: exit
