@@ -24,6 +24,9 @@ Plug 'glts/vim-radical'
 " Repeat stuff
 Plug 'tpope/vim-repeat'
 
+" Better highlighting matching text
+Plug 'andymass/vim-matchup'
+
 " Highlight just yanked text
 Plug 'machakann/vim-highlightedyank'
 
