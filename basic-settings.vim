@@ -79,3 +79,4 @@ set formatoptions+=cro/qn1j
 " Folding
 set foldlevel=1
 set foldcolumn=2
+
