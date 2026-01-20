@@ -75,3 +75,7 @@ set timeoutlen=600
 " Formatoptions
 set formatoptions-=t
 set formatoptions+=cro/qn1j
+
+" Folding
+set foldlevel=1
+set foldcolumn=2
