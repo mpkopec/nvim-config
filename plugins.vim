@@ -19,6 +19,7 @@ Plug 'tpope/vim-speeddating'
 Plug 'christoomey/vim-titlecase'
 
 " Convert binary, hex, etc..
+Plug 'glts/vim-magnum'
 Plug 'glts/vim-radical'
 
 " Repeat stuff
