@@ -80,3 +80,199 @@ set formatoptions+=cro/qn1j
 set foldlevel=1
 set foldcolumn=2
 
+function! CloseFoldsInnerFirst() abort
+  let lnum = line('.')
+  let L = foldlevel(lnum)
+  if L <= 0
+    return
+  endif
+
+  " Helper: move left boundary across closed folds correctly
+  let s = lnum
+  while s > 1
+    let prev = s - 1
+
+    " If prev is inside a closed fold, jump to that fold's start
+    let fc = foldclosed(prev)
+    if fc != -1
+      " If that closed fold is still within our target level, include it and continue
+      if foldlevel(fc) >= L
+        let s = fc
+        continue
+      else
+        break
+      endif
+    endif
+
+    if foldlevel(prev) >= L
+      let s = prev
+    else
+      break
+    endif
+  endwhile
+
+  " Helper: move right boundary across closed folds correctly
+  let e = lnum
+  let last = line('$')
+  while e < last
+    let nxt = e + 1
+
+    " If nxt is inside a closed fold, jump to that fold's end
+    let fc = foldclosed(nxt)
+    if fc != -1
+      let fe = foldclosedend(nxt)
+      " If that closed fold belongs to our target fold, include it wholly and continue
+      if foldlevel(fc) >= L
+        let e = fe
+        continue
+      else
+        break
+      endif
+    endif
+
+    if foldlevel(nxt) >= L
+      let e = nxt
+    else
+      break
+    endif
+  endwhile
+
+  " Collect fold starts inside [s,e], skipping over already-closed children
+  let starts = []
+  let i = s
+  while i <= e
+    " Skip closed folds entirely (they're already collapsed; also avoids foldlevel()=0 inside)
+    let fc = foldclosed(i)
+    if fc != -1
+      let i = foldclosedend(i) + 1
+      continue
+    endif
+
+    let prevL = (i > 1 ? foldlevel(i - 1) : 0)
+    let curL  = foldlevel(i)
+
+    " A fold "starts" when level increases; only consider folds at/under current depth
+    if curL > prevL && curL >= L
+      call add(starts, [curL, i])
+    endif
+
+    let i += 1
+  endwhile
+
+  " Deepest first; for same depth, bottom-up
+  call sort(starts, {a,b -> a[0] == b[0] ? (b[1] - a[1]) : (b[0] - a[0])})
+
+  " Close each fold using :foldclose (no !) semantics via zc
+  let view = winsaveview()
+  try
+    for item in starts
+      let ln = item[1]
+      if foldclosed(ln) == -1
+        call cursor(ln, 1)
+        silent! normal! zc
+      endif
+    endfor
+  finally
+    call winrestview(view)
+  endtry
+endfunction
+
+nfunction! CloseFoldsInnerFirst() abort
+  let lnum = line('.')
+  let L = foldlevel(lnum)
+  if L <= 0
+    return
+  endif
+
+  " Helper: move left boundary across closed folds correctly
+  let s = lnum
+  while s > 1
+    let prev = s - 1
+
+    " If prev is inside a closed fold, jump to that fold's start
+    let fc = foldclosed(prev)
+    if fc != -1
+      " If that closed fold is still within our target level, include it and continue
+      if foldlevel(fc) >= L
+        let s = fc
+        continue
+      else
+        break
+      endif
+    endif
+
+    if foldlevel(prev) >= L
+      let s = prev
+    else
+      break
+    endif
+  endwhile
+
+  " Helper: move right boundary across closed folds correctly
+  let e = lnum
+  let last = line('$')
+  while e < last
+    let nxt = e + 1
+
+    " If nxt is inside a closed fold, jump to that fold's end
+    let fc = foldclosed(nxt)
+    if fc != -1
+      let fe = foldclosedend(nxt)
+      " If that closed fold belongs to our target fold, include it wholly and continue
+      if foldlevel(fc) >= L
+        let e = fe
+        continue
+      else
+        break
+      endif
+    endif
+
+    if foldlevel(nxt) >= L
+      let e = nxt
+    else
+      break
+    endif
+  endwhile
+
+  " Collect fold starts inside [s,e], skipping over already-closed children
+  let starts = []
+  let i = s
+  while i <= e
+    " Skip closed folds entirely (they're already collapsed; also avoids foldlevel()=0 inside)
+    let fc = foldclosed(i)
+    if fc != -1
+      let i = foldclosedend(i) + 1
+      continue
+    endif
+
+    let prevL = (i > 1 ? foldlevel(i - 1) : 0)
+    let curL  = foldlevel(i)
+
+    " A fold "starts" when level increases; only consider folds at/under current depth
+    if curL > prevL && curL >= L
+      call add(starts, [curL, i])
+    endif
+
+    let i += 1
+  endwhile
+
+  " Deepest first; for same depth, bottom-up
+  call sort(starts, {a,b -> a[0] == b[0] ? (b[1] - a[1]) : (b[0] - a[0])})
+
+  " Close each fold using :foldclose (no !) semantics via zc
+  let view = winsaveview()
+  try
+    for item in starts
+      let ln = item[1]
+      if foldclosed(ln) == -1
+        call cursor(ln, 1)
+        silent! normal! zc
+      endif
+    endfor
+  finally
+    call winrestview(view)
+  endtry
+endfunction
+
+noremap <silent> zC :call CloseFoldsInnerFirst()<CR>
+
