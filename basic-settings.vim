@@ -177,7 +177,7 @@ function! CloseFoldsInnerFirst() abort
   endtry
 endfunction
 
-nfunction! CloseFoldsInnerFirst() abort
+function! CloseFoldsInnerFirst() abort
   let lnum = line('.')
   let L = foldlevel(lnum)
   if L <= 0
