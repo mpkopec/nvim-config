@@ -6,6 +6,7 @@ exec 'source ' .  stdpath('config') . '/abbr.vim'
 exec 'source ' .  stdpath('config') . '/basic-maps.vim'
 exec 'source ' .  stdpath('config') . '/leader-maps.vim'
 exec 'source ' .  stdpath('config') . '/func.vim'
+exec 'source ' .  stdpath('config') . '/wsl-clip.vim'
 
 exec 'source ' .  stdpath('config') . '/plugconf/firenvim.vim'
 exec 'source ' .  stdpath('config') . '/plugconf/fugitive.vim'
