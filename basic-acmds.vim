@@ -9,7 +9,8 @@ for f in filePtrns2Trim
   execute "autocmd BufWritePre " . f . " :call TrimWhitespace()"
 endfor
 
-let file_patterns_wrap = ["tex", "bib"]
+" Wrapping and spelling
+let file_patterns_wrap = ["tex", "bib", "markdown"]
 for f in file_patterns_wrap
   execute "autocmd FileType " . f . " setlocal wrap"
   execute "autocmd FileType " . f . " setlocal spell"
