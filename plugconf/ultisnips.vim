@@ -4,6 +4,7 @@
 let g:UltiSnipsExpandTrigger="<c-x><c-s>"
 let g:UltiSnipsJumpForwardTrigger="<c-l>"
 let g:UltiSnipsJumpBackwardTrigger="<c-h>"
+let g:UltiSnipsEnableSnipMate=1
 
 noremap ,se :UltiSnipsEdit<cr>
 " If you want :UltiSnipsEdit to split your window.

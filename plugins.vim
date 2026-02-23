@@ -40,11 +40,16 @@ Plug 'lervag/vimtex'
 " Useful pair mappings (like moving lines, jumping, etc.)
 " Plug 'tpope/vim-unimpaired'
 
-" Fuzzy finding, grepping and exploring
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'nvim-telescope/telescope-file-browser.nvim'
+if has('nvim')
+  " Fuzzy finding, grepping and exploring
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+  Plug 'nvim-telescope/telescope-file-browser.nvim'
+
+  " Markdown heading numbering
+  Plug 'whitestarrain/md-section-number.nvim'
+endif
 
 " NERDTree
 Plug 'preservim/nerdtree' |
@@ -57,7 +62,7 @@ Plug 'https://github.com/ludovicchabant/vim-gutentags'
 " Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} 
 " exec 'source ' .  stdpath('config') . '/plugconf/luasnip.lua'
 if has('python3')
-  Plug 'https://github.com/SirVer/ultisnips'
+  Plug 'SirVer/ultisnips', { 'branch': 'master' }
   Plug 'https://github.com/mpkopec/vim-snippets'
   exec 'source ' .  stdpath('config') . '/plugconf/ultisnips.vim'
 
@@ -108,6 +113,9 @@ Plug 'https://github.com/tpope/vim-fugitive.git'
 Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
 
+" Easy aligning
+Plug 'junegunn/vim-easy-align'
+
 " See what keys do like in emacs
 "Plug 'liuchengxu/vim-which-key'
 
@@ -132,6 +140,9 @@ Plug 'vhda/verilog_systemverilog.vim'
 " Markdown Preview
 " NN in the pure editor
 "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
+
+" Markdown ToC
+Plug 'mzlogin/vim-markdown-toc'
 
 " Colorscheme switcher
 Plug 'https://github.com/xolox/vim-misc.git'
