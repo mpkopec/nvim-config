@@ -34,5 +34,5 @@ nnoremap * :keepjumps normal! mi*`i<CR>
 " For verilog state machines sequential logic
 vnoremap ,rtn :s/\(\s\+\)\(\(\w\+\)_reg\)\(\s\+\)<=\(\s\+\)\w\+;/\1\2\4<=\5\3_next;<CR>
 
-" Aligning on equal sign
-nnoremap ,a= :normal yyp$F=hvj$F=kr gvyjPkdd<cr>
+" Make a scratchpad buffer and open it
+nnoremap ,s :enew<CR>:setlocal buftype=nofile bufhidden=hide noswapfile<CR>
