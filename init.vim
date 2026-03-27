@@ -7,6 +7,11 @@ exec 'source ' .  stdpath('config') . '/abbr.vim'
 exec 'source ' .  stdpath('config') . '/basic-maps.vim'
 exec 'source ' .  stdpath('config') . '/leader-maps.vim'
 exec 'source ' .  stdpath('config') . '/func.vim'
+
+for s:f in glob(stdpath('config') . '/lib/*.vim', 0, 1)
+  exec 'source ' . s:f
+endfor
+
 exec 'source ' .  stdpath('config') . '/wsl-clip.vim'
 
 exec 'source ' .  stdpath('config') . '/plugconf/firenvim.vim'
