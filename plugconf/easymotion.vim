@@ -7,23 +7,24 @@ let g:EasyMotion_do_shade = 0
 " ,f{char} to move to {char}
 map  ,mf <Plug>(easymotion-bd-f)
 if !exists('g:vscode')
-  nmap ,mf <Plug>(easymotion-overwin-f)
+  nmap ,mf m'<Plug>(easymotion-overwin-f)
 endif
 
 " ,s{char}{char} to move to {char}{char}
 map  ,ms <Plug>(easymotion-bd-f2)
 if !exists('g:vscode')
-  nmap ,ms <Plug>(easymotion-overwin-f2)
+  nmap ,ms m'<Plug>(easymotion-overwin-f2)
 endif
 
 " Move to line
 map ,ml <Plug>(easymotion-bd-jk)
 if !exists('g:vscode')
-  nmap ,ml <Plug>(easymotion-overwin-line)
+  nmap ,ml m'<Plug>(easymotion-overwin-line)
 endif
 
 " Move to word
 map  ,mw <Plug>(easymotion-bd-w)
+nmap ,mw m'<Plug>(easymotion-bd-w)
 if !exists('g:vscode')
   " nmap ,mw <Plug>(easymotion-overwin-w)
 endif
