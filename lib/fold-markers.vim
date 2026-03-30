@@ -20,9 +20,22 @@ endfunction
 
 " ---- Python ----
 
-" Matches 'class', 'def', and 'async def' (which needs priority over bare
-" 'def' so it is listed first in the alternation).
-let s:python_pattern = '^\s*\(async\s\+def\|class\|def\)\s'
+" Detection pattern for Python block-starting lines.
+" Breakdown:
+"   ^\s*                        — optional leading indentation
+"   \(                          — start of the main alternation
+"     async\s\+def\s\+\w\+\s*(  — async function: 'async', whitespace,
+"                                  'def', whitespace, name (\w\+), optional
+"                                  whitespace, opening paren (always present)
+"     \|def\s\+\w\+\s*(         — regular function: same without 'async';
+"                                  listed after 'async def' so the longer
+"                                  alternative takes priority
+"     \|class\s\+\w\+\s*[:(]    — class: name followed by either '(' (with
+"                                  base classes, single- or multi-line) or
+"                                  ':' (no base classes); rules out prose
+"                                  uses like 'class constants, ...'
+"   \)                          — end of alternation
+let s:python_pattern = '^\s*\(async\s\+def\s\+\w\+\s*(\|def\s\+\w\+\s*(\|class\s\+\w\+\s*[:(]\)'
 
 " Return the last non-blank line of the indentation-based block starting at
 " start_line. Handles multi-line signatures in two phases:
@@ -96,14 +109,97 @@ function! s:AddPythonFoldMarkers()
   " Process bottom-to-top to preserve line numbers of remaining targets
   call reverse(targets)
   for lnum in targets
-    let end_line = s:PythonBlockEnd(lnum)
-    let pad      = repeat(' ', indent(lnum))
-    call append(end_line, pad . close_marker)
+    let end_line  = s:PythonBlockEnd(lnum)
+    let close_pad = repeat(' ', indent(lnum) + shiftwidth())
+    call append(end_line, close_pad . close_marker)
     call setline(lnum, getline(lnum) . open_marker)
   endfor
 
   call winrestview(save_view)
   echo printf('Added fold markers to %d block(s)', len(targets))
+endfunction
+
+" Opening pattern for docstrings — matches either \"\"\" or ''' after optional
+" leading whitespace. \zs marks the start of the returned portion so
+" matchstr() yields the quote style directly, without a separate ternary.
+let s:docstring_opener = "^\\s*\\zs\\(\"\"\"\\|'''\\)"
+
+" Add fold markers around multi-line docstrings (\"\"\" or ''') in the buffer.
+" Markers are placed on separate comment lines surrounding the docstring to
+" avoid polluting the string content. Single-line docstrings are skipped.
+" Scanning runs top-to-bottom so that after finding an opening triple-quote,
+" we can skip past the body and avoid mistaking the closing \"\"\" for a new
+" opening.
+function! s:AddPythonDocstringFoldMarkers()
+  let save_view    = winsaveview()
+  let markers      = split(&foldmarker, ',')
+  let open_marker  = s:FoldComment(markers[0])
+  let close_marker = s:FoldComment(markers[1])
+
+  " Collect [open_lnum, close_lnum] pairs for unmarked multi-line docstrings
+  let targets = []
+  let lnum = 1
+  while lnum <= line('$')
+    let l     = getline(lnum)
+    let quote = matchstr(l, s:docstring_opener)
+    if !empty(quote)
+      " Skip single-line docstrings: opening and closing on same line.
+      " .\{-} is vim's non-greedy .* — matches the content between the quotes.
+      if l =~# '^\s*' . quote . '.\{-}' . quote . '\s*$'
+        let lnum += 1
+        continue
+      endif
+
+      " Multi-line: scan forward for the closing triple-quote
+      let close_lnum = -1
+      let i = lnum + 1
+      while i <= line('$')
+        if getline(i) =~# quote . '\s*\(#.*\)\?$'
+          let close_lnum = i
+          break
+        endif
+        let i += 1
+      endwhile
+
+      " Add to targets if closing was found and not already marked.
+      " Check the line above the opener (where # {{{ will be inserted) and
+      " the opener itself in case the user placed a marker there manually.
+      if close_lnum != -1 && getline(lnum - 1) !~# markers[0] && l !~# markers[0]
+        call add(targets, [lnum, close_lnum])
+      endif
+
+      " Skip past the docstring body so the closing \"\"\" is not mistaken
+      " for a new opening on the next iteration
+      let lnum = (close_lnum != -1 ? close_lnum : lnum) + 1
+      continue
+    endif
+    let lnum += 1
+  endwhile
+
+  if empty(targets)
+    echo 'No unmarked multi-line docstrings found'
+    return
+  endif
+
+  " Process bottom-to-top to preserve line numbers of remaining targets.
+  " Within each pair, insert the closing marker first so the opener insertion
+  " does not shift close_lnum before we use it.
+  call reverse(targets)
+  for [open_lnum, close_lnum] in targets
+    let pad = repeat(' ', indent(open_lnum))
+    call append(close_lnum, pad . close_marker)
+    call append(open_lnum - 1, pad . open_marker)
+  endfor
+
+  call winrestview(save_view)
+  echo printf('Added fold markers to %d docstring(s)', len(targets))
+endfunction
+
+" Run all Python fold marker functions in sequence. Bound to ,fm so a single
+" mapping handles both class/function blocks and docstrings in one pass.
+function! s:AddAllPythonFoldMarkers()
+  call s:AddPythonFoldMarkers()
+  call s:AddPythonDocstringFoldMarkers()
 endfunction
 
 " ---- Language-agnostic ----
@@ -134,6 +230,6 @@ endfunction
 
 augroup FoldMarkers
   autocmd!
-  autocmd FileType python nnoremap <buffer> ,fm :call <SID>AddPythonFoldMarkers()<CR>
+  autocmd FileType python nnoremap <buffer> ,fm :call <SID>AddAllPythonFoldMarkers()<CR>
   autocmd FileType python nnoremap <buffer> ,fM :call <SID>RemoveFoldMarkers()<CR>
 augroup END

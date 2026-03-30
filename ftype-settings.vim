@@ -32,6 +32,5 @@ augroup END
 augroup python_folding
   autocmd!
   autocmd FileType python setlocal foldmethod=marker
-  autocmd FileType python setlocal foldlevel=0
 augroup END
 " }}}
