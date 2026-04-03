@@ -6,8 +6,12 @@ colorscheme carbonized-dark
 " Filetype plugin
 filetype on
 
-" Set mouse only for normal mode
-set mouse=n
+" Enable mouse in normal and visual mode. Visual mode is included to fix a
+" race condition where a buffered terminal mouse-release event from a
+" focus-click is misinterpreted as <Esc>, aborting the visual selection.
+" With mouse=nv Neovim properly consumes these events; the <nop> mappings in
+" basic-maps.vim neutralise the side-effect of click-to-reposition in visual.
+set mouse=nv
 
 " Show line numbers properly
 set number
@@ -37,11 +41,6 @@ set magic
 " Set line wrapping and its navigation
 set nowrap linebreak
 set showbreak=…
-
-nnoremap <expr> j v:count == 0 ? 'gj' : "\<Esc>".v:count.'j'
-nnoremap <expr> j v:count == 0 ? 'gj' : "\<Esc>".v:count.'j'
-vnoremap <expr> k v:count == 0 ? 'gk' : "\<Esc>".v:count.'k'
-vnoremap <expr> k v:count == 0 ? 'gk' : "\<Esc>".v:count.'k'
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw

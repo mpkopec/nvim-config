@@ -21,7 +21,12 @@ nnoremap <silent> <A-i> :m .-2<CR>
 inoremap <silent> <A-i> <Esc>:m .-2<CR>gi
 vnoremap <silent> <A-i> :m '<-2<CR>gv
 
-" Better jk navigation with soft-wrapped lines
+" Consume mouse-button events in visual mode without acting on them — see
+" mouse=nv comment in basic-settings.vim for the full rationale.
+vnoremap <LeftMouse>   <nop>
+vnoremap <LeftRelease> <nop>
+
+" Better jk navigation with soft-wrapped lines and jump list for count > 1
 nnoremap <expr> k v:count == 0 ? 'gk' : v:count > 1 ? "m'".v:count.'k' : v:count.'k'
 nnoremap <expr> j v:count == 0 ? 'gj' : v:count > 1 ? "m'".v:count.'j' : v:count.'j'
 
