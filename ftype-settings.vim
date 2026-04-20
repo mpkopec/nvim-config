@@ -5,9 +5,16 @@ let g:markdown_folding = 1
 " VHDL formatting
 let g:vhdl_indent_genportmap = 0
 
-autocmd FileType vhdl setl comments=:--
-autocmd FileType vhdl setl commentstring=--\ %s
-autocmd FileType vhdl setl foldmethod=marker
+augroup vhdl_settings
+  autocmd!
+  autocmd FileType vhdl  setl comments=:--
+  autocmd FileType vhdl  setl commentstring=--\ %s
+  " foldmethod is window-local: FileType fires only in the first window, so
+  " new splits inherit the global default ('manual'). BufWinEnter fires for
+  " every window a buffer enters and ensures the setting follows it.
+  autocmd FileType vhdl  setl foldmethod=marker
+  autocmd BufWinEnter *.vhd,*.vhdl setl foldmethod=marker
+augroup END
 " }}}
 
 " {{{ Python
