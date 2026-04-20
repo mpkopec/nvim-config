@@ -5,5 +5,6 @@ let g:UltiSnipsExpandTrigger="<c-x><c-s>"
 let g:UltiSnipsJumpForwardTrigger="<c-l>"
 let g:UltiSnipsJumpBackwardTrigger="<c-h>"
 let g:UltiSnipsEnableSnipMate=1
+let g:UltiSnipsSnippetDirectories = ['UltiSnips', $HOME . '/.config/nvim/snippets']
 
 noremap ,se :UltiSnipsEdit<cr>
