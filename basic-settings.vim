@@ -3,6 +3,11 @@
 set termguicolors
 colorscheme carbonized-dark
 
+augroup color_overrides
+  autocmd!
+  autocmd ColorScheme carbonized-dark highlight CursorLine guibg=#3b3b37 gui=underline
+augroup END
+
 " Filetype plugin
 filetype on
 
