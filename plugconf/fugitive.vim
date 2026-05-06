@@ -4,6 +4,9 @@ if !exists('g:vscode')
   nnoremap ,gc :Git commit<CR>
   nnoremap ,gca :Git commit --amend<CR>
   nnoremap ,gu :Git push<CR>
+  nnoremap ,gut :Git push --tags<CR>
+  nnoremap ,gtl :Git tag -l<CR>
+  nnoremap ,gta :Git tag -a\ 
   nnoremap ,gf :Git fetch<CR>
   nnoremap ,gm :Git merge<CR>
 endif
