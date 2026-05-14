@@ -1,12 +1,13 @@
 " TODO Add folding and divide the file into logical blocks
 " Colorscheme handling
 set termguicolors
-colorscheme carbonized-dark
 
 augroup color_overrides
   autocmd!
   autocmd ColorScheme carbonized-dark highlight CursorLine guibg=#3b3b37 gui=underline
 augroup END
+
+colorscheme carbonized-dark
 
 " Filetype plugin
 filetype on
