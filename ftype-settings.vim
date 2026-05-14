@@ -14,6 +14,18 @@ function! s:CToVHDLHex() range
     call cursor(l:start[1], l:start[2])
 endfunction
 
+function! s:VHDLIntHexToC() range
+    let l:start = getpos("'<")
+    execute a:firstline . ',' . a:lastline . 's/\%V\c16#\([0-9a-fA-F]\+\)#/0x\1/g'
+    call cursor(l:start[1], l:start[2])
+endfunction
+
+function! s:CToVHDLIntHex() range
+    let l:start = getpos("'<")
+    execute a:firstline . ',' . a:lastline . 's/\%V\c0x\([0-9a-fA-F]\+\)/16#\1#/g'
+    call cursor(l:start[1], l:start[2])
+endfunction
+
 " VHDL formatting
 let g:vhdl_indent_genportmap = 0
 
@@ -30,6 +42,10 @@ augroup vhdl_settings
   autocmd FileType vhdl    vnoremap <buffer> ,cx :call <SID>CToVHDLHex()<CR>
   autocmd BufWinEnter *.vhd,*.vhdl vnoremap <buffer> ,xc :call <SID>VHDLHexToC()<CR>
   autocmd BufWinEnter *.vhd,*.vhdl vnoremap <buffer> ,cx :call <SID>CToVHDLHex()<CR>
+  autocmd FileType vhdl    vnoremap <buffer> ,ic :call <SID>VHDLIntHexToC()<CR>
+  autocmd FileType vhdl    vnoremap <buffer> ,ci :call <SID>CToVHDLIntHex()<CR>
+  autocmd BufWinEnter *.vhd,*.vhdl vnoremap <buffer> ,ic :call <SID>VHDLIntHexToC()<CR>
+  autocmd BufWinEnter *.vhd,*.vhdl vnoremap <buffer> ,ci :call <SID>CToVHDLIntHex()<CR>
 augroup END
 " }}}
 
