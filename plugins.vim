@@ -9,6 +9,9 @@ Plug 'https://github.com/rafi/awesome-vim-colorschemes.git'
 " Better Comments
 Plug 'tpope/vim-commentary'
 
+" Better Join command
+Plug 'sk1418/Join'
+
 " Surround
 Plug 'tpope/vim-surround'
 
