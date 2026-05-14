@@ -2,6 +2,18 @@
 let g:markdown_folding = 1
 
 " {{{ VHDL
+function! s:VHDLHexToC() range
+    let l:start = getpos("'<")
+    execute a:firstline . ',' . a:lastline . 's/\%V\cx"\([0-9a-fA-F]\+\)"/0x\1/g'
+    call cursor(l:start[1], l:start[2])
+endfunction
+
+function! s:CToVHDLHex() range
+    let l:start = getpos("'<")
+    execute a:firstline . ',' . a:lastline . 's/\%V\c0x\([0-9a-fA-F]\+\)/x"\1"/g'
+    call cursor(l:start[1], l:start[2])
+endfunction
+
 " VHDL formatting
 let g:vhdl_indent_genportmap = 0
 
@@ -14,6 +26,20 @@ augroup vhdl_settings
   " every window a buffer enters and ensures the setting follows it.
   autocmd FileType vhdl  setl foldmethod=marker
   autocmd BufWinEnter *.vhd,*.vhdl setl foldmethod=marker
+  autocmd FileType vhdl    vnoremap <buffer> ,xc :call <SID>VHDLHexToC()<CR>
+  autocmd FileType vhdl    vnoremap <buffer> ,cx :call <SID>CToVHDLHex()<CR>
+  autocmd BufWinEnter *.vhd,*.vhdl vnoremap <buffer> ,xc :call <SID>VHDLHexToC()<CR>
+  autocmd BufWinEnter *.vhd,*.vhdl vnoremap <buffer> ,cx :call <SID>CToVHDLHex()<CR>
+augroup END
+" }}}
+
+" {{{ XDC
+augroup xdc_settings
+  autocmd!
+  autocmd BufRead,BufNewFile *.xdc setl filetype=xdc
+  autocmd FileType xdc setl commentstring=#\ %s
+  autocmd FileType xdc setl foldmethod=marker
+  autocmd BufWinEnter *.xdc setl foldmethod=marker
 augroup END
 " }}}
 
