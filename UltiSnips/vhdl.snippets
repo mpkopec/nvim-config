@@ -1,0 +1,56 @@
+extends vhdl
+
+global !p
+def vhdl_fsm(snip):
+    import math
+
+    states = snip.buffer[snip.line].strip().split(",")
+    states = [s.strip().upper() for s in states]
+    snip.buffer[snip.line] = ""
+
+    lines = []
+
+    # Enumeration type declaration
+    state_list = ", ".join(states)
+    lines.append(f"\ttype ${{1:state}}_t is ({state_list});")
+    lines.append(f"\tsignal $1_reg, $1_next : $1_t;")
+    lines.append(f"")
+
+    # Clocked register process
+    lines.append(f"\t-- State register")
+    lines.append(f"\tprocess(${{2:clk}}) begin")
+    lines.append(f"\t\tif rising_edge($2) then")
+    lines.append(f"\t\t\tif (${{3:rst}} = '1') then")
+    lines.append(f"\t\t\t\t$1_reg <= ${{4:{states[0]}}};")
+    lines.append(f"\t\t\telse")
+    lines.append(f"\t\t\t\t$1_reg <= $1_next;")
+    lines.append(f"\t\t\tend if;")
+    lines.append(f"\t\tend if;")
+    lines.append(f"\tend process;")
+    lines.append(f"")
+
+    # Combinational next-state process
+    lines.append(f"\t-- Next-state logic")
+    lines.append(f"\tprocess(all) begin")
+    lines.append(f"\t\t${{5:-- Default combinational values}}")
+    lines.append(f"\t\t$1_next <= $1_reg;")
+    lines.append(f"")
+    lines.append(f"\t\tcase $1_reg is")
+    for i, s in enumerate(states):
+        lines.append(f"\t\t\twhen {s} =>")
+        next_s = states[(i + 1) % len(states)]
+        lines.append(f"\t\t\t\t$1_next <= {next_s};")
+        lines.append(f"")
+    lines.append(f"\t\t\twhen others =>")
+    lines.append(f"\t\t\t\t$1_next <= ${{6:{states[0]}}};")
+    lines.append(f"")
+    lines.append(f"\t\tend case;")
+    lines.append(f"\tend process;")
+
+    snip.expand_anon("\n".join(lines))
+endglobal
+
+post_jump "vhdl_fsm(snip)"
+snippet "fsm\s+(((\w+),)*\w+)" "Finite state machine" br
+`!p snip.rv = match.group(1) `$0
+endsnippet

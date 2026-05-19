@@ -1,0 +1,152 @@
+snippet lib "Use a user-defined library"
+	library ${1}
+	use $1.${2}
+snippet libs "Use standard IEEE libraries"
+	library IEEE;
+	use IEEE.std_logic_1164.all;
+	use IEEE.numeric_std.all;
+snippet libx "Use Xilinx libraries"
+	library UNISIM;
+	use UNISIM.vcomponents.all;
+snippet ent "Entity"
+	entity ${1:`vim_snippets#Filename()`} is
+		generic (
+			${2:generics}
+		);
+		port (
+			${3:ports}
+		);
+	end entity $1;
+snippet pac "Package declaration"
+	 package ${1:`vim_snippets#Filename()`} is
+		generic (
+			${2:generics}
+		);
+		${3:package content}
+	end package $1;
+snippet arc "Architecture"
+	architecture ${1:behav} of ${2:`vim_snippets#Filename()`} is
+		${3:-- architecture declaration}
+	begin
+		${4:-- architecture logic}
+	end architecture $1;
+snippet comp "Component declaration"
+	component ${1:name} is
+		generic (
+			${2:generics}
+		);
+		port (
+			${3:ports}
+		);
+	end component;
+snippet inst "Component instantiation"
+	${1:inst_name} : ${2:component_name}
+		generic map (
+			${3:generics}
+		)
+		port map (
+			${4:ports}
+		);
+snippet inste "Direct entity instantiation"
+	${1:inst_name} : entity ${2:work}.${3:entity_name}
+		generic map (
+			${4:generics}
+		)
+		port map (
+			${5:ports}
+		);
+snippet fun "Function declaration"
+	function ${1:name} (
+		${2:function_parameters}
+	) return ${3:return_type} is
+		${4:variable_declarations}
+	begin
+		${0:${VISUAL}}
+	end function $1;
+snippet ifgen "If Generate"
+	${1:GEN_LABEL} : if ${2:CONDITION} generate
+		${3:${VISUAL}}
+	begin
+		${4:${VISUAL}}
+	end generate;
+snippet forgen "For Generate"
+	${1:GEN_LABEL} : for ${2:i} in ${3:0} to ${4:N} - 1 generate
+		${5:${VISUAL}}
+	end generate;
+## Declarations
+snippet co "Constant"
+	constant C_${1:CONSTANT_NAME} : ${2:integer} := ${3:value};
+snippet sl "std_logic"
+	std_logic
+snippet slv "std_logic_vector"
+	std_logic_vector(${1:n} downto ${2:0})
+snippet ge "Generic-like format, name : type"
+	${1:NAME} : ${2:std_logic};
+snippet si "Signal declaration"
+	signal ${1:signal_name} : ${2:std_logic};
+snippet var "Variable declaration"
+	variable ${1:name} : ${2:integer};
+snippet io "Input/output declaration"
+	${1:name} : ${2: in} ${3:std_logic};
+## Process Statements
+snippet pr "Bare process"
+	process (${1:sensitivity list})
+	begin
+		${2:${VISUAL}}
+	end process;
+snippet prc "Process with clock"
+	process (${1:clk})
+	begin
+		if rising_edge ($1) then
+			${2:${VISUAL}}
+		end if;
+	end process;
+snippet prcr "Process with clock and reset"
+	process (${1:clk}, ${2:nrst})
+	begin
+		if ($2 = '${3:0}') then
+			${4:${VISUAL}}
+		elsif rising_edge($1) then
+			${5:${VISUAL}}
+		end if;
+	end process;
+snippet pra "Process all"
+	process (${1:all})
+	begin
+		${2:${VISUAL}}
+	end process;
+## Control Statements
+snippet if "If statement"
+	if ${1} then
+		${2:${VISUAL}}
+	end if;
+snippet ife "If-else statement"
+	if ${1} then
+		${2:${VISUAL}}
+	else
+		${3:${VISUAL}}
+	end if;
+snippet el "Else statement"
+	else
+		${1:${VISUAL}}
+snippet eif "Elsif statement"
+	elsif ${1} then
+		${2:${VISUAL}}
+snippet ca "Case statement"
+	case ${1} is
+		${2:${VISUAL}}
+	end case;
+snippet wh "When statement"
+	when ${1} =>
+		${2:${VISUAL}}
+snippet for "For loop"
+	for ${1:i} in ${2} ${3:to} ${4} loop
+		${5:${VISUAL}}
+	end loop;
+snippet whi "While loop"
+	while ${1} loop
+		${2:${VISUAL}}
+	end loop;
+## Misc
+snippet oth "Others"
+	(others => '${1:0}');

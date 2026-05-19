@@ -66,7 +66,7 @@ Plug 'https://github.com/ludovicchabant/vim-gutentags'
 " exec 'source ' .  stdpath('config') . '/plugconf/luasnip.lua'
 if has('python3')
   Plug 'SirVer/ultisnips', { 'branch': 'master' }
-  Plug 'https://github.com/mpkopec/vim-snippets'
+  Plug 'honza/vim-snippets'
   exec 'source ' .  stdpath('config') . '/plugconf/ultisnips.vim'
 
   Plug 'https://github.com/ycm-core/YouCompleteMe', { 'do': 'python3 install.py' }

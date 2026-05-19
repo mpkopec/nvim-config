@@ -1,0 +1,21 @@
+snippet fig "Figure, i.e. img with caption"
+	<div style="text-align: center;">
+			<img src="${1:image path}"
+					 style="width:${2:width};"
+					 alt="${3:alt text}"
+					 title="${4:$3}" />
+			<div style="width: 90%; margin: 0.3em auto;">
+					<em>${5:caption}</em>
+			</div>
+	</div>
+
+snippet glfig "Figure, i.e. img with caption (GitLab Flavored Markdown)"
+	<div align="center">
+			<img src="${1:image path}"
+					 width="${2:width}"
+					 alt="${3:alt text}"
+					 title="${4:$3}" />
+			<div>
+					<em>${5:caption}</em>
+			</div>
+	</div>

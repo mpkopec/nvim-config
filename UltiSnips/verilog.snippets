@@ -1,0 +1,65 @@
+extends verilog
+
+global !p
+def verilog_fsm(snip):
+		import math
+
+		states = snip.buffer[snip.line].strip().split(",")
+		states = [s.strip().upper() for s in states]
+		states_lens = [len(s) for s in states]
+		bit_width = math.ceil(math.log2(len(states)))
+		snip.buffer[snip.line] = ""
+
+		lines = []
+		max_state_len = max(states_lens)
+
+		if bit_width == 1:
+				for i, s in enumerate(states):
+						s = " "*abs(len(s) - max_state_len) + s
+						i = " "*abs(len(str(len(states))) - len(str(i))) + str(i)
+						lines.append(f"\tlocalparam {s} = {i};")
+				lines.append(f"")
+				lines.append(f"\treg ${{1:state}}_reg, $1_next;")
+		else:
+				for i, s in enumerate(states):
+						s = " "*abs(len(s) - max_state_len) + s
+						i = " "*abs(len(str(len(states))) - len(str(i))) + str(i)
+						lines.append(f"\tlocalparam [{bit_width - 1}:0] {s} = {i};")
+				lines.append(f"")
+				lines.append(f"\treg [{bit_width - 1}:0] ${{1:state}}_reg, $1_next;")
+		lines.append(f"")
+		lines.append(f"\talways @(${{2:posedge clk}}) begin")
+		lines.append(f"\t\tif (rst) begin")
+		lines.append(f"\t\t\t$1_reg <= ${{3:{states[0]}}};")
+		lines.append(f"\t\tend")
+		lines.append(f"\t\telse begin")
+		lines.append(f"\t\t\t$1_reg <= $1_next;")
+		lines.append(f"\t\tend")
+		lines.append(f"\tend")
+		lines.append(f"")
+
+		lines.append(f"\talways @* begin")
+		lines.append(f"\t\t${{4:/* Default combinational values */}}")
+		lines.append(f"")
+		lines.append(f"\t\tcase($1_reg)")
+		for i, s in enumerate(states):
+				lines.append(f"\t\t\t{s}: begin")
+				if i == len(states) - 1:
+						lines.append(f"\t\t\t\t$1_next = {states[0]};")
+				else:
+						lines.append(f"\t\t\t\t$1_next = {states[i + 1]};")
+				lines.append(f"\t\t\tend")
+				lines.append(f"")
+		lines.append(f"\t\t\tdefault: begin")
+		lines.append(f"\t\t\t\t$1_next = ${{5:{states[0]}}};")
+		lines.append(f"\t\t\tend")
+		lines.append(f"\t\tendcase")
+		lines.append(f"\tend")
+
+		snip.expand_anon("\n".join(lines))
+endglobal
+
+post_jump "verilog_fsm(snip)"
+snippet "fsm\s+(((\w+),)*\w+)" "Finite state machine" br
+`!p snip.rv = match.group(1) `$0
+endsnippet
