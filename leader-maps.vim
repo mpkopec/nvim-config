@@ -35,9 +35,9 @@ nnoremap ,l :bnext<CR>
 nnoremap ,j :bprevious<CR>
 
 " Terminal opening
-nnoremap ,t  :split<CR>:terminal<CR>
-nnoremap ,tv :vsplit<CR>:terminal<CR>
-nnoremap ,tt :terminal<CR>
+nnoremap ,zh :split<CR>:terminal<CR>
+nnoremap ,zv :vsplit<CR>:terminal<CR>
+nnoremap ,zz :terminal<CR>
 
 " Copy whole file to clipboard
 " memo: Ctrl-A
