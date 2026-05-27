@@ -34,8 +34,10 @@ nnoremap ,l :bnext<CR>
 " Move to the previous buffer
 nnoremap ,j :bprevious<CR>
 
-" Quicker shell opening
-" nnoremap ,t :terminal<CR>
+" Terminal opening
+nnoremap ,t  :split<CR>:terminal<CR>
+nnoremap ,tv :vsplit<CR>:terminal<CR>
+nnoremap ,tt :terminal<CR>
 
 " Copy whole file to clipboard
 " memo: Ctrl-A

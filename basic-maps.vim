@@ -41,3 +41,6 @@ vnoremap ,rtn :s/\(\s\+\)\(\(\w\+\)_reg\)\(\s\+\)<=\(\s\+\)\w\+;/\1\2\4<=\5\3_ne
 
 " Make a scratchpad buffer and open it
 nnoremap ,s :enew<CR>:setlocal buftype=nofile bufhidden=hide noswapfile<CR>
+
+" Exit terminal mode
+tnoremap <A-n> <C-\><C-n>
