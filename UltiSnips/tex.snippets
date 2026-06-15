@@ -1,0 +1,135 @@
+# TikZ snippets for block diagrams and technical drawings.
+# Merges with the global tex.snippets from vim-snippets at snippet load time.
+
+########################################
+# COORDINATES
+########################################
+
+snippet tkc "TikZ: coordinate at absolute position" b
+\coordinate (${1:name}) at (${2:0}, ${3:0});
+endsnippet
+
+snippet tkcm "TikZ: coordinate with calc math" b
+\coordinate (${1:name}) at ($(${2:expr})$);
+endsnippet
+
+snippet tkcv "TikZ: coordinate via vertical alignment — same x as A, same y as B (A |- B)" b
+\coordinate (${1:name}) at (${2:A} |- ${3:B});
+endsnippet
+
+snippet tkch "TikZ: coordinate via horizontal alignment — same x as B, same y as A (A -| B)" b
+\coordinate (${1:name}) at (${2:A} -| ${3:B});
+endsnippet
+
+snippet tkcf "TikZ: coordinate via fractional interpolation" b
+\coordinate (${1:name}) at ($(${2:A})!${3:0.5}!(${4:B})$);
+endsnippet
+
+########################################
+# INLINE CALC EXPRESSIONS
+# Use inside \draw, \node, coordinate arguments.
+########################################
+
+snippet tkfc "TikZ: inline fractional interpolation" w
+($(${1:A})!${2:0.5}!(${3:B})$)
+endsnippet
+
+snippet tkcalc "TikZ: inline calc expression wrapper" w
+($(${1:expr})$)
+endsnippet
+
+########################################
+# PATH SEGMENTS
+# Append to an existing \draw or \path command — these are not full statements.
+########################################
+
+snippet tkls "TikZ: straight line segment" w
+-- (${1:dest})
+endsnippet
+
+# Tab stop $2 appears twice; UltiSnips mirrors both instances as you type.
+snippet tkbs "TikZ: Bézier segment — repeated control point for simple single-handle curves" w
+.. controls (${1:ctrl}) and ($1) .. (${2:dest})
+endsnippet
+
+########################################
+# ARROW DRAW COMMANDS
+########################################
+
+snippet tkend "TikZ: draw with end arrow (A → B)" b
+\draw[endarr] (${1:A}) -- (${2:B});
+endsnippet
+
+snippet tkto "TikZ: draw with end arrow (A → B)" b
+\draw[endarr] (${1:A}) -- (${2:B});
+endsnippet
+
+snippet tkbeg "TikZ: draw with begin arrow (A ← B)" b
+\draw[begarr] (${1:A}) -- (${2:B});
+endsnippet
+
+snippet tkfr "TikZ: draw with begin arrow (A ← B)" b
+\draw[begarr] (${1:A}) -- (${2:B});
+endsnippet
+
+snippet tkbth "TikZ: draw with arrows on both ends (A ↔ B)" b
+\draw[botharr] (${1:A}) -- (${2:B});
+endsnippet
+
+snippet tkbi "TikZ: draw with arrows on both ends (A ↔ B)" b
+\draw[botharr] (${1:A}) -- (${2:B});
+endsnippet
+
+########################################
+# DRAW PRIMITIVES
+########################################
+
+snippet tkdr "TikZ: draw rectangle from corner A to corner B" b
+\draw (${1:A}) rectangle (${2:B});
+endsnippet
+
+########################################
+# NODES
+########################################
+
+snippet tknb "TikZ: drawn box node for block diagrams" b
+\node[draw, align = center, minimum width = ${1:3cm}, minimum height = ${2:1cm}] (${3:name}) at (${4:0}, ${5:0}) {${6:text}};
+endsnippet
+
+snippet tkn "TikZ: bare node" b
+\node[${1:opts}] (${2:name}) at (${3:0}, ${4:0}) {${5:text}};
+endsnippet
+
+########################################
+# DRAW-TWICE (crossing hop)
+# Draws the path on the background layer in white to erase whatever is underneath,
+# then redraws the same path on the main layer.  Tab stop $2 mirrors: type the path
+# segment once and it appears in both \draw commands.
+########################################
+
+snippet tkovr "TikZ: draw-twice crossing hop (white erase + real redraw)" b
+\begin{pgfonlayer}{background}
+	\draw[draw = white, line width = ${1:4pt}] ${2:PATH};
+\end{pgfonlayer}
+\draw[${3:endarr}] $2;
+endsnippet
+
+########################################
+# BOILERPLATE
+########################################
+
+snippet tklayers "TikZ: three-layer declaration (background / main / foreground)" b
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+endsnippet
+
+snippet tkpic "TikZ: tikzpicture skeleton with layers" b
+\begin{tikzpicture}[${1}]
+	\pgfdeclarelayer{background}
+	\pgfdeclarelayer{foreground}
+	\pgfsetlayers{background,main,foreground}
+
+	$0
+\end{tikzpicture}
+endsnippet
