@@ -1,0 +1,1 @@
+/home/mkopec/repos/claude-setup/projects/vim-config/.claude/CLAUDE.md
