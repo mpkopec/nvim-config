@@ -60,6 +60,9 @@ set mat=5
 set noswapfile
 set nobackup
 
+" Open horizontal splits below the current window
+set splitbelow
+
 " 1 tab == 2 spaces
 " except for the files in which it is overriden in the filetype plugin
 set shiftwidth=2
