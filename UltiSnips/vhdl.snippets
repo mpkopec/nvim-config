@@ -54,3 +54,227 @@ post_jump "vhdl_fsm(snip)"
 snippet "fsm\s+(((\w+),)*\w+)" "Finite state machine" br
 `!p snip.rv = match.group(1) `$0
 endsnippet
+
+# Native UltiSnips format (rather than snipmate) is deliberate: it defaults to
+# priority 0, which beats the fixed priority -1000 that UltiSnips assigns to
+# every snipmate-format snippet — including honza/vim-snippets' shipped
+# vhdl.snippets. Without that priority gap, every trigger shared between the
+# two files (lib, libs, libx, ent, pr, prc, prcr, pra, if, ife, el, eif, ca,
+# wh, for, oth) pops up an ambiguous-match menu instead of expanding directly.
+priority 1
+
+snippet lib "Use a user-defined library"
+library ${1}
+use $1.${2}
+endsnippet
+
+snippet libs "Use standard IEEE libraries"
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+endsnippet
+
+snippet libx "Use Xilinx libraries"
+library UNISIM;
+use UNISIM.vcomponents.all;
+endsnippet
+
+snippet ent "Entity"
+entity ${1:`vim_snippets#Filename()`} is
+	generic (
+		${2:generics}
+	);
+	port (
+		${3:ports}
+	);
+end entity $1;
+endsnippet
+
+snippet pac "Package declaration"
+ package ${1:`vim_snippets#Filename()`} is
+	generic (
+		${2:generics}
+	);
+	${3:package content}
+end package $1;
+endsnippet
+
+snippet arc "Architecture"
+architecture ${1:behav} of ${2:`vim_snippets#Filename()`} is
+	${3:-- architecture declaration}
+begin
+	${4:-- architecture logic}
+end architecture $1;
+endsnippet
+
+snippet comp "Component declaration"
+component ${1:name} is
+	generic (
+		${2:generics}
+	);
+	port (
+		${3:ports}
+	);
+end component;
+endsnippet
+
+snippet inst "Component instantiation"
+${1:inst_name} : ${2:component_name}
+	generic map (
+		${3:generics}
+	)
+	port map (
+		${4:ports}
+	);
+endsnippet
+
+snippet inste "Direct entity instantiation"
+${1:inst_name} : entity ${2:work}.${3:entity_name}
+	generic map (
+		${4:generics}
+	)
+	port map (
+		${5:ports}
+	);
+endsnippet
+
+snippet fun "Function declaration"
+function ${1:name} (
+	${2:function_parameters}
+) return ${3:return_type} is
+	${4:variable_declarations}
+begin
+	${0:${VISUAL}}
+end function $1;
+endsnippet
+
+snippet ifgen "If Generate"
+${1:GEN_LABEL} : if ${2:CONDITION} generate
+	${3:${VISUAL}}
+begin
+	${4:${VISUAL}}
+end generate;
+endsnippet
+
+snippet forgen "For Generate"
+${1:GEN_LABEL} : for ${2:i} in ${3:0} to ${4:N} - 1 generate
+	${5:${VISUAL}}
+end generate;
+endsnippet
+
+## Declarations
+snippet co "Constant"
+constant C_${1:CONSTANT_NAME} : ${2:integer} := ${3:value};
+endsnippet
+
+snippet sl "std_logic"
+std_logic
+endsnippet
+
+snippet slv "std_logic_vector"
+std_logic_vector(${1:n} downto ${2:0})
+endsnippet
+
+snippet ge "Generic-like format, name : type"
+${1:NAME} : ${2:std_logic};
+endsnippet
+
+snippet si "Signal declaration"
+signal ${1:signal_name} : ${2:std_logic};
+endsnippet
+
+snippet var "Variable declaration"
+variable ${1:name} : ${2:integer};
+endsnippet
+
+snippet io "Input/output declaration"
+${1:name} : ${2: in} ${3:std_logic};
+endsnippet
+
+## Process Statements
+snippet pr "Bare process"
+process (${1:sensitivity list})
+begin
+	${2:${VISUAL}}
+end process;
+endsnippet
+
+snippet prc "Process with clock"
+process (${1:clk})
+begin
+	if rising_edge ($1) then
+		${2:${VISUAL}}
+	end if;
+end process;
+endsnippet
+
+snippet prcr "Process with clock and reset"
+process (${1:clk}, ${2:nrst})
+begin
+	if ($2 = '${3:0}') then
+		${4:${VISUAL}}
+	elsif rising_edge($1) then
+		${5:${VISUAL}}
+	end if;
+end process;
+endsnippet
+
+snippet pra "Process all"
+process (${1:all})
+begin
+	${2:${VISUAL}}
+end process;
+endsnippet
+
+## Control Statements
+snippet if "If statement"
+if ${1} then
+	${2:${VISUAL}}
+end if;
+endsnippet
+
+snippet ife "If-else statement"
+if ${1} then
+	${2:${VISUAL}}
+else
+	${3:${VISUAL}}
+end if;
+endsnippet
+
+snippet el "Else statement"
+else
+	${1:${VISUAL}}
+endsnippet
+
+snippet eif "Elsif statement"
+elsif ${1} then
+	${2:${VISUAL}}
+endsnippet
+
+snippet ca "Case statement"
+case ${1} is
+	${2:${VISUAL}}
+end case;
+endsnippet
+
+snippet wh "When statement"
+when ${1} =>
+	${2:${VISUAL}}
+endsnippet
+
+snippet for "For loop"
+for ${1:i} in ${2} ${3:to} ${4} loop
+	${5:${VISUAL}}
+end loop;
+endsnippet
+
+snippet whi "While loop"
+while ${1} loop
+	${2:${VISUAL}}
+end loop;
+endsnippet
+
+## Misc
+snippet oth "Others"
+(others => '${1:0}');
+endsnippet
