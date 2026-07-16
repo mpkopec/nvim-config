@@ -95,13 +95,15 @@ end
 
 vim.keymap.set("n", ",tk", tags_by_kind)
 
--- Browse-and-insert helper for the `inst:entity_name` snippet: picks a VHDL
--- entity from ctags (kind "entity" — long-form kind names, since gutentags
--- is configured with --fields=+K) and inserts the bare trigger text at the
--- cursor rather than jumping to the file. Disambiguation between multiple
+-- Browse-and-insert helper for the `inst:`/`comp:` snippet triggers: picks
+-- a VHDL entity from ctags (kind "entity" — long-form kind names, since
+-- gutentags is configured with --fields=+K) and inserts just the bare
+-- entity name at the cursor, not a full trigger — the caller types
+-- `inst:`/`comp:` themselves first, so this picker only fills in the part
+-- that benefits from fuzzy search. Disambiguation between multiple
 -- declarations of the same entity name happens later, at snippet-expand
--- time (see UltiSnips/vhdl.snippets' vhdl_instantiate()), not here.
-local function insert_instantiation_trigger()
+-- time (see UltiSnips/vhdl.snippets' resolve_entity_signature()), not here.
+local function insert_entity_name()
   local pickers = require("telescope.pickers")
   local finders = require("telescope.finders")
   local conf = require("telescope.config").values
@@ -137,7 +139,7 @@ local function insert_instantiation_trigger()
   table.sort(entities)
 
   pickers.new({}, {
-    prompt_title = "Instantiate Entity",
+    prompt_title = "VHDL Entity",
     finder = finders.new_table { results = entities },
     sorter = conf.generic_sorter({}),
     attach_mappings = function(prompt_bufnr)
@@ -147,7 +149,7 @@ local function insert_instantiation_trigger()
         if not selection then
           return
         end
-        vim.api.nvim_put({ "inst:" .. selection[1] }, "c", true, true)
+        vim.api.nvim_put({ selection[1] }, "c", true, true)
         vim.cmd("startinsert!")
       end)
       return true
@@ -155,7 +157,8 @@ local function insert_instantiation_trigger()
   }):find()
 end
 
-vim.keymap.set("n", ",tm", insert_instantiation_trigger)
+vim.keymap.set("n", ",tm", insert_entity_name)
+vim.keymap.set("i", "<C-t>m", insert_entity_name)
 vim.keymap.set("n", ",tr",  ":Telescope registers<CR>")
 vim.keymap.set("n", ",tb",  ":Telescope buffers<CR>")
 vim.keymap.set("n", ",tch",  ":Telescope command_history<CR>")
