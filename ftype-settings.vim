@@ -1,60 +1,8 @@
 " Markdown code folding
 let g:markdown_folding = 1
 
-" {{{ VHDL
-function! s:VHDLHexToC() range
-    let l:start = getpos("'<")
-    execute a:firstline . ',' . a:lastline . 's/\%V\cx"\([0-9a-fA-F]\+\)"/0x\1/g'
-    call cursor(l:start[1], l:start[2])
-endfunction
-
-function! s:CToVHDLHex() range
-    let l:start = getpos("'<")
-    execute a:firstline . ',' . a:lastline . 's/\%V\c0x\([0-9a-fA-F]\+\)/x"\1"/g'
-    call cursor(l:start[1], l:start[2])
-endfunction
-
-function! s:VHDLIntHexToC() range
-    let l:start = getpos("'<")
-    execute a:firstline . ',' . a:lastline . 's/\%V\c16#\([0-9a-fA-F]\+\)#/0x\1/g'
-    call cursor(l:start[1], l:start[2])
-endfunction
-
-function! s:CToVHDLIntHex() range
-    let l:start = getpos("'<")
-    execute a:firstline . ',' . a:lastline . 's/\%V\c0x\([0-9a-fA-F]\+\)/16#\1#/g'
-    call cursor(l:start[1], l:start[2])
-endfunction
-
-" VHDL formatting
-let g:vhdl_indent_genportmap = 0
-
-" Style flags (any subset of p=prefill, t=tabstop, a=align) used by the
-" `inst:entity_name` snippet (UltiSnips/vhdl.snippets) when its trigger omits
-" the `:options` suffix. An explicit suffix on the trigger itself, even an
-" empty one, overrides this entirely for that expansion rather than adding to
-" it. Override in your own init.vim, before or after this file is sourced.
-let g:vhdl_instantiation_default_style = get(g:, 'vhdl_instantiation_default_style', 'pa')
-
-augroup vhdl_settings
-  autocmd!
-  autocmd FileType vhdl  setl comments=:--
-  autocmd FileType vhdl  setl commentstring=--\ %s
-  " foldmethod is window-local: FileType fires only in the first window, so
-  " new splits inherit the global default ('manual'). BufWinEnter fires for
-  " every window a buffer enters and ensures the setting follows it.
-  autocmd FileType vhdl  setl foldmethod=marker
-  autocmd BufWinEnter *.vhd,*.vhdl setl foldmethod=marker
-  autocmd FileType vhdl    vnoremap <buffer> ,xc :call <SID>VHDLHexToC()<CR>
-  autocmd FileType vhdl    vnoremap <buffer> ,cx :call <SID>CToVHDLHex()<CR>
-  autocmd BufWinEnter *.vhd,*.vhdl vnoremap <buffer> ,xc :call <SID>VHDLHexToC()<CR>
-  autocmd BufWinEnter *.vhd,*.vhdl vnoremap <buffer> ,cx :call <SID>CToVHDLHex()<CR>
-  autocmd FileType vhdl    vnoremap <buffer> ,ic :call <SID>VHDLIntHexToC()<CR>
-  autocmd FileType vhdl    vnoremap <buffer> ,ci :call <SID>CToVHDLIntHex()<CR>
-  autocmd BufWinEnter *.vhd,*.vhdl vnoremap <buffer> ,ic :call <SID>VHDLIntHexToC()<CR>
-  autocmd BufWinEnter *.vhd,*.vhdl vnoremap <buffer> ,ci :call <SID>CToVHDLIntHex()<CR>
-augroup END
-" }}}
+" VHDL settings moved to plugconf/vhdl.vim (hex/int conversion, folding,
+" instantiation-snippet style flag).
 
 " {{{ XDC
 augroup xdc_settings
