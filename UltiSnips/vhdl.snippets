@@ -50,12 +50,59 @@ def vhdl_fsm(snip):
     snip.expand_anon("\n".join(lines))
 
 
-def vhdl_instantiate(snip):
+def resolve_entity_signature(entity_name, trigger_prefix):
     import json
+    import vim
+
+    from hdl_signature import parse_file
+
+    # ctags is configured with --fields=+K (long kind names), so the tag's
+    # kind is the string "entity", not the short letter "e".
+    tags = [
+        t for t in vim.eval("taglist('^%s$')" % entity_name)
+        if t.get("kind") == "entity"
+    ]
+    if not tags:
+        vim.command(
+            "echohl ErrorMsg | echo %s | echohl None"
+            % json.dumps("%s: no entity '%s' found in tags" % (trigger_prefix, entity_name))
+        )
+        return None
+
+    # taglist() already resolves 'filename' against the tags file's own
+    # directory (Vim's default 'tagrelative' behaviour), which matters here
+    # because gutentags stores the tags file under ~/.cache, not the project
+    # root; fnamemodify(...,':p') just normalizes relative-to-cwd cases too.
+    files = sorted({t["filename"] for t in tags})
+    if len(files) > 1:
+        prompt = ['Multiple declarations of entity "%s":' % entity_name]
+        prompt += ["%d. %s" % (i, f) for i, f in enumerate(files, 1)]
+        choice = int(vim.eval("inputlist(%s)" % json.dumps(prompt)))
+        if choice < 1 or choice > len(files):
+            return None
+        chosen_file = files[choice - 1]
+    else:
+        chosen_file = files[0]
+    chosen_file = vim.eval("fnamemodify(%s, ':p')" % json.dumps(chosen_file))
+
+    signatures = [s for s in parse_file(chosen_file) if s.name == entity_name]
+    if not signatures:
+        vim.command(
+            "echohl ErrorMsg | echo %s | echohl None"
+            % json.dumps(
+                "%s: entity '%s' not found while parsing %s"
+                % (trigger_prefix, entity_name, chosen_file)
+            )
+        )
+        return None
+    return signatures[0]
+
+
+def vhdl_instantiate(snip):
     import re
     import vim
 
-    from hdl_signature import parse_file, render_instantiation
+    from hdl_signature import render_instantiation
 
     # `match` (from the triggering snippet's `!p snip.rv = match.group(0)`) is
     # only available to that inline interpolation, not to this post_jump
@@ -82,48 +129,12 @@ def vhdl_instantiate(snip):
     # never reached.
     snip.cursor.set(snip.line, m.start())
 
-    # ctags is configured with --fields=+K (long kind names), so the tag's
-    # kind is the string "entity", not the short letter "e".
-    tags = [
-        t for t in vim.eval("taglist('^%s$')" % entity_name)
-        if t.get("kind") == "entity"
-    ]
-    if not tags:
-        vim.command(
-            "echohl ErrorMsg | echo %s | echohl None"
-            % json.dumps("inst: no entity '%s' found in tags" % entity_name)
-        )
-        return
-
-    # taglist() already resolves 'filename' against the tags file's own
-    # directory (Vim's default 'tagrelative' behaviour), which matters here
-    # because gutentags stores the tags file under ~/.cache, not the project
-    # root; fnamemodify(...,':p') just normalizes relative-to-cwd cases too.
-    files = sorted({t["filename"] for t in tags})
-    if len(files) > 1:
-        prompt = ['Multiple declarations of entity "%s":' % entity_name]
-        prompt += ["%d. %s" % (i, f) for i, f in enumerate(files, 1)]
-        choice = int(vim.eval("inputlist(%s)" % json.dumps(prompt)))
-        if choice < 1 or choice > len(files):
-            return
-        chosen_file = files[choice - 1]
-    else:
-        chosen_file = files[0]
-    chosen_file = vim.eval("fnamemodify(%s, ':p')" % json.dumps(chosen_file))
-
-    signatures = [s for s in parse_file(chosen_file) if s.name == entity_name]
-    if not signatures:
-        vim.command(
-            "echohl ErrorMsg | echo %s | echohl None"
-            % json.dumps(
-                "inst: entity '%s' not found while parsing %s"
-                % (entity_name, chosen_file)
-            )
-        )
+    signature = resolve_entity_signature(entity_name, "inst")
+    if signature is None:
         return
 
     body = render_instantiation(
-        signatures[0],
+        signature,
         prefill="p" in style,
         tabstop="t" in style,
         align="a" in style,
