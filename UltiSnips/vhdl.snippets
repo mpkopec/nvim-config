@@ -140,6 +140,34 @@ def vhdl_instantiate(snip):
         align="a" in style,
     )
     snip.expand_anon(body)
+
+
+def vhdl_component_decl(snip):
+    import re
+
+    from hdl_signature import render_declaration
+
+    # Mirrors vhdl_instantiate's trigger-matching/line-slicing technique
+    # above. render_declaration's output has no tabstop markup, but
+    # expand_anon handles a plain-text body correctly regardless — it
+    # still applies the current line's indentation to every continuation
+    # line and leaves the cursor at the implicit end, exactly as it would
+    # for an explicit $0 (confirmed empirically, not just assumed).
+    line = snip.buffer[snip.line]
+    m = re.search(r"comp:(\w+)", line)
+    if not m:
+        return
+    entity_name = m.group(1)
+
+    snip.buffer[snip.line] = line[: m.start()]
+    snip.cursor.set(snip.line, m.start())
+
+    signature = resolve_entity_signature(entity_name, "comp")
+    if signature is None:
+        return
+
+    body = render_declaration(signature, keyword="component")
+    snip.expand_anon(body)
 endglobal
 
 post_jump "vhdl_fsm(snip)"
@@ -232,6 +260,11 @@ endsnippet
 
 post_jump "vhdl_instantiate(snip)"
 snippet "inst:(\w+)(?::([pta]*))?" "Entity instantiation from hdl-signature (ctags-resolved)" br
+`!p snip.rv = match.group(0)`$0
+endsnippet
+
+post_jump "vhdl_component_decl(snip)"
+snippet "comp:(\w+)" "Component declaration from hdl-signature (ctags-resolved)" br
 `!p snip.rv = match.group(0)`$0
 endsnippet
 
