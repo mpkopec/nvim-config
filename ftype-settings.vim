@@ -87,6 +87,11 @@ augroup END
 
 augroup python_folding
   autocmd!
-  autocmd FileType python setlocal foldmethod=marker
+  " indent, not marker: Python's default foldmarker ({{{/}}}) collides with
+  " literal triple-brace text that legitimately occurs in f-strings and
+  " Jinja2 templates (e.g. f"{{{n}"), producing runaway folds. The prior
+  " marker-based approach (lib/fold-markers.vim, ,fm/,fM) is preserved at
+  " git tag python-fold-markers-pre-removal.
+  autocmd FileType python setlocal foldmethod=indent
 augroup END
 " }}}
