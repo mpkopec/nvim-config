@@ -94,6 +94,68 @@ local function tags_by_kind()
 end
 
 vim.keymap.set("n", ",tk", tags_by_kind)
+
+-- Browse-and-insert helper for the `inst:entity_name` snippet: picks a VHDL
+-- entity from ctags (kind "entity" — long-form kind names, since gutentags
+-- is configured with --fields=+K) and inserts the bare trigger text at the
+-- cursor rather than jumping to the file. Disambiguation between multiple
+-- declarations of the same entity name happens later, at snippet-expand
+-- time (see UltiSnips/vhdl.snippets' vhdl_instantiate()), not here.
+local function insert_instantiation_trigger()
+  local pickers = require("telescope.pickers")
+  local finders = require("telescope.finders")
+  local conf = require("telescope.config").values
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+
+  local tagfiles = vim.fn.tagfiles()
+  if vim.tbl_isempty(tagfiles) then
+    vim.notify("No tags file found. Create one with ctags -R", vim.log.levels.ERROR)
+    return
+  end
+
+  local entities = {}
+  local seen = {}
+  for _, f in ipairs(tagfiles) do
+    for _, line in ipairs(vim.fn.readfile(vim.fn.expand(f, true))) do
+      if line ~= "" and line:sub(1, 1) ~= "!" then
+        if line:match("\tkind:([^\t]+)") == "entity" then
+          local name = line:match("^([^\t]+)")
+          if name and not seen[name] then
+            seen[name] = true
+            table.insert(entities, name)
+          end
+        end
+      end
+    end
+  end
+
+  if vim.tbl_isempty(entities) then
+    vim.notify("No VHDL entities found in tags.", vim.log.levels.ERROR)
+    return
+  end
+  table.sort(entities)
+
+  pickers.new({}, {
+    prompt_title = "Instantiate Entity",
+    finder = finders.new_table { results = entities },
+    sorter = conf.generic_sorter({}),
+    attach_mappings = function(prompt_bufnr)
+      actions.select_default:replace(function()
+        local selection = action_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+        if not selection then
+          return
+        end
+        vim.api.nvim_put({ "inst:" .. selection[1] }, "c", true, true)
+        vim.cmd("startinsert!")
+      end)
+      return true
+    end,
+  }):find()
+end
+
+vim.keymap.set("n", ",tm", insert_instantiation_trigger)
 vim.keymap.set("n", ",tr",  ":Telescope registers<CR>")
 vim.keymap.set("n", ",tb",  ":Telescope buffers<CR>")
 vim.keymap.set("n", ",tch",  ":Telescope command_history<CR>")

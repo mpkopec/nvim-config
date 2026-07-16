@@ -16,6 +16,11 @@ Plugins with build steps (run automatically by vim-plug):
 
 External dependencies: `python3`, `curl`, `ctags` (optional, for gutentags), `black` (Python formatter), `okular` (LaTeX PDF viewer), `wsl-clip` (WSL clipboard bridge).
 
+The VHDL `inst:entity_name` instantiation snippet (`UltiSnips/vhdl.snippets`) additionally needs `hdl-signature` importable from Neovim's own `python3` provider — not necessarily the system `python3` on `$PATH`, since that provider can be a separate interpreter (e.g. a pipx-managed venv for `pynvim`). Check which interpreter that is with `:checkhealth provider`, then install into it, e.g.:
+```bash
+pipx inject pynvim "hdl-signature @ git+https://github.com/mpkopec/hdl-signature.git"
+```
+
 ## Architecture
 
 **Entry point**: `init.vim` sources all other files in order.

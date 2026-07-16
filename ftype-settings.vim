@@ -29,6 +29,13 @@ endfunction
 " VHDL formatting
 let g:vhdl_indent_genportmap = 0
 
+" Style flags (any subset of p=prefill, t=tabstop, a=align) used by the
+" `inst:entity_name` snippet (UltiSnips/vhdl.snippets) when its trigger omits
+" the `:options` suffix. An explicit suffix on the trigger itself, even an
+" empty one, overrides this entirely for that expansion rather than adding to
+" it. Override in your own init.vim, before or after this file is sourced.
+let g:vhdl_instantiation_default_style = get(g:, 'vhdl_instantiation_default_style', 'pa')
+
 augroup vhdl_settings
   autocmd!
   autocmd FileType vhdl  setl comments=:--
