@@ -7,7 +7,10 @@ Code Generation Scrutiny Level: normal
 ## Setup and Installation
 
 ```bash
-bash install.sh   # installs curl if needed, downloads vim-plug, launches nvim
+bash install.sh   # requires uv preinstalled; installs curl if needed, downloads
+                   # vim-plug, provisions the pynvim/hdl-signature python3
+                   # provider, prints its healthcheck
+nvim
 ```
 
 After first launch, run `:PlugInstall` inside Neovim to install all plugins.
