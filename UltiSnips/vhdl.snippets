@@ -349,6 +349,19 @@ begin
 end process;
 endsnippet
 
+snippet prcs "Process with clock and synchronous reset"
+process (${1:clk})
+begin
+	if rising_edge($1) then
+		if (${2:rst_n} = '${3:0}') then
+			${4:${VISUAL}}
+		else
+			${5:${VISUAL}}
+		end if;
+	end if;
+end process;
+endsnippet
+
 snippet pra "Process all"
 process (${1:all})
 begin
