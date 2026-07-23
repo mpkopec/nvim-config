@@ -118,6 +118,18 @@ function! s:BuildVhdlFoldCache() abort
     " into the scan below.
     let opens_text = substitute(s, '\C\<end\>\%(\s\+\<\%(package\s\+body\|protected\s\+body\|entity\|architecture\|process\|function\|procedure\|package\|record\|block\|component\|protected\|configuration\|loop\|if\|case\|generate\)\>\)\?', '', 'g')
 
+    " 'entity', 'component' and 'configuration' each have a direct-
+    " instantiation statement form ('label : entity lib.name;', 'label :
+    " component comp_name port map (...);', 'label : configuration
+    " lib.config_name;') that reuses the same keyword as the corresponding
+    " *declaration* opener, but has no matching 'end' to close it -
+    " counting it as an opener here would inflate depth for the rest of the
+    " file. The two are distinguished by the preceding ':' (the
+    " instantiation label separator), which a declaration's leading keyword
+    " never has, so that colon-prefixed form is stripped before the opener
+    " scan below.
+    let opens_text = substitute(opens_text, '\C:\s*\zs\<\%(entity\|component\|configuration\)\>', '', 'g')
+
     " VHDL-2008 conditional/case-generate statements ('if cond generate' /
     " 'case sel generate') put an 'if'/'case' token on the same header line
     " as 'generate', but the whole construct is a single block closed by one
