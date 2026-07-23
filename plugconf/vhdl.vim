@@ -49,7 +49,15 @@ function! s:EnableVhdlExprFolds() abort
 
   augroup VhdlExprFoldsBuf
     autocmd! * <buffer>
-    autocmd TextChanged,TextChangedI,InsertLeave <buffer> call s:BuildVhdlFoldCache()
+    " foldmethod=expr only re-queries foldexpr() for lines Vim thinks
+    " changed, not the whole buffer, so a rebuild here can leave downstream
+    " unedited lines (e.g. boilerplate 'end if;'/'end process;' lines after
+    " a multi-tabstop snippet expansion) showing a stale foldlevel() until
+    " something forces a full re-derive. Reassigning 'foldexpr' to itself is
+    " the standard trick for that: it makes Vim recompute fold levels for
+    " the whole window without discarding manually opened/closed folds, the
+    " way zx/zX would.
+    autocmd TextChanged,TextChangedI,InsertLeave <buffer> call s:BuildVhdlFoldCache() | let &l:foldexpr = &l:foldexpr
   augroup END
 endfunction
 
