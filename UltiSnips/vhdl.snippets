@@ -235,7 +235,7 @@ component ${1:name} is
 	port (
 		${3:ports}
 	);
-end component;
+end component $1;
 endsnippet
 
 snippet inst "Component instantiation"
@@ -283,13 +283,13 @@ ${1:GEN_LABEL} : if ${2:CONDITION} generate
 	${3:${VISUAL}}
 begin
 	${4:${VISUAL}}
-end generate;
+end generate $1;
 endsnippet
 
 snippet forgen "For Generate"
 ${1:GEN_LABEL} : for ${2:i} in ${3:0} to ${4:N} - 1 generate
 	${5:${VISUAL}}
-end generate;
+end generate $1;
 endsnippet
 
 ## Declarations
