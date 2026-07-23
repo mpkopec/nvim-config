@@ -292,6 +292,10 @@ ${1:GEN_LABEL} : for ${2:i} in ${3:0} to ${4:N} - 1 generate
 end generate $1;
 endsnippet
 
+snippet whe "Conditional (when...else) chain link"
+${1:value} when ${2:condition} else $0
+endsnippet
+
 ## Declarations
 snippet co "Constant"
 constant C_${1:CONSTANT_NAME} : ${2:integer} := ${3:value};
