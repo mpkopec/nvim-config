@@ -325,6 +325,47 @@ snippet io "Input/output declaration"
 ${1:name} : ${2: in} ${3:std_logic};
 endsnippet
 
+## Type Conversions
+snippet u2slv "unsigned to std_logic_vector"
+std_logic_vector(${1:unsigned_signal})
+endsnippet
+
+snippet slv2u "std_logic_vector to unsigned"
+unsigned(${1:slv_signal})
+endsnippet
+
+snippet s2slv "signed to std_logic_vector"
+std_logic_vector(${1:signed_signal})
+endsnippet
+
+snippet slv2s "std_logic_vector to signed"
+signed(${1:slv_signal})
+endsnippet
+
+snippet u2i "unsigned to integer"
+to_integer(${1:unsigned_signal})
+endsnippet
+
+snippet i2u "integer to unsigned"
+to_unsigned(${1:int_value}, ${2:width})
+endsnippet
+
+snippet s2i "signed to integer"
+to_integer(${1:signed_signal})
+endsnippet
+
+snippet i2s "integer to signed"
+to_signed(${1:int_value}, ${2:width})
+endsnippet
+
+snippet slv2i "std_logic_vector to integer (via unsigned/signed)"
+to_integer(${1|unsigned,signed|}(${2:slv_signal}))
+endsnippet
+
+snippet i2slv "integer to std_logic_vector (via unsigned/signed)"
+std_logic_vector(to_${1|unsigned,signed|}(${2:int_value}, ${3:width}))
+endsnippet
+
 ## Process Statements
 snippet pr "Bare process"
 process (${1:sensitivity list})
