@@ -51,5 +51,5 @@ function! ClaudeInjectFullResponse()
   call cursor(l:header_line + len(l:lines) + 2, 1)
 endfunction
 
-autocmd BufReadPost /tmp/claude-prompt-*.md call ClaudeInjectFullResponse()
+autocmd BufReadPost /tmp/claude-prompt-*.md,/tmp/**/claude-prompt-*.md call ClaudeInjectFullResponse()
 
