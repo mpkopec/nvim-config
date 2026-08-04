@@ -13,6 +13,49 @@ inoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<C-x><C-n>"
 inoremap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<C-x><C-p>"
 inoremap <expr><C-l>  pumvisible() ? "\<C-y>" : "\<C-l>"
 
+" With YCM's popup open, plain <CR> either just accepts a navigated-to
+" candidate (already live-written into the buffer by <C-j>/<C-k> above) or,
+" worse, gets treated by YCM as a text-changing edit and reopens the popup
+" instead of breaking the line — <CR> is not one of YCM's own guarded
+" stop-completion keys, only <C-y> is. This has to be a <Cmd> mapping, not
+" an <expr> one: an <expr> mapping's returned keys are inserted raw and
+" unmapped, so "\<C-y>\<CR>" would never reach YCM's real <C-y> mapping —
+" the one that actually sets its internal reopen guard; a <Cmd> mapping
+" runs its body as an Ex command with none of the <expr> textlock/queuing
+" restrictions, so feedkeys(..., 'm') from inside it reaches YCM's guarded
+" mapping properly, and the trailing <CR> loops back into this same
+" mapping once more, but by then pumvisible() is false, so that second
+" pass just inserts the newline.
+"
+" lexima.vim also claims <CR> for itself, but lazily — only the first
+" time Insert mode is entered in the session (self-deleting augroup
+" lexima-init in its plugin/lexima.vim) — which is later than this file
+" being sourced at startup, so a plain inoremap here would get silently
+" overwritten the moment the user first types anything. That setup is
+" only deferred to InsertEnter because it lives behind an autoload
+" function (lexima#init(), effectively a no-op whose only real job is to
+" trigger Vim's autoload mechanism into sourcing autoload/lexima.vim,
+" which is what actually installs the default rules as a side effect of
+" being loaded). Calling any lexima# function ourselves forces that same
+" loading — and thus lexima's own <CR> mapping — to happen right here
+" instead, deterministically, before our own mapping below, so there is
+" no InsertEnter race left to lose.
+call lexima#init()
+function! s:YcmDismissPopupAndNewline() abort
+  if pumvisible()
+    call feedkeys("\<C-y>\<CR>", 'mi')
+  else
+    " lexima#expand() is the same function lexima's own <CR> mapping would
+    " have called; using it here (rather than a bare <CR>) keeps its
+    " bracket-expand-to-indented-block behaviour (e.g. "{<CR>}") working.
+    " It returns a string built to be typed literally, unmapped — the same
+    " way lexima's own generated mapping consumes it (a plain, non-remapped
+    " inoremap) — so this is fed with 'n', not 'm'.
+    call feedkeys(lexima#expand('<CR>', 'i'), 'ni')
+  endif
+endfunction
+inoremap <silent> <CR> <Cmd>call <SID>YcmDismissPopupAndNewline()<CR>
+
 " Moving lines and groups of them
 nnoremap <silent> <A-u> :m .+1<CR>
 inoremap <silent> <A-u> <Esc>:m .+1<CR>gi
