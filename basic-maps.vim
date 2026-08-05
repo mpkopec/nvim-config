@@ -54,7 +54,11 @@ function! s:YcmDismissPopupAndNewline() abort
     call feedkeys(lexima#expand('<CR>', 'i'), 'ni')
   endif
 endfunction
-inoremap <silent> <CR> <Cmd>call <SID>YcmDismissPopupAndNewline()<CR>
+" The Cmd-mapping chain above (and the feedkeys() calls inside it) defers
+" screen redraws; without this, lexima's <C-r>=...<CR> expression-register
+" trick (called via feedkeys in the non-popup branch above) evaluates
+" correctly but its prompt text visibly lingers in the command-line row.
+inoremap <silent> <CR> <Cmd>call <SID>YcmDismissPopupAndNewline()<CR><Cmd>redraw<CR>
 
 " Moving lines and groups of them
 nnoremap <silent> <A-u> :m .+1<CR>
