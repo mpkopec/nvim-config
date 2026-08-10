@@ -90,4 +90,9 @@ vnoremap ,rtn :s/\(\s\+\)\(\(\w\+\)_reg\)\(\s\+\)<=\(\s\+\)\w\+;/\1\2\4<=\5\3_ne
 nnoremap ,s :enew<CR>:setlocal buftype=nofile bufhidden=hide noswapfile<CR>
 
 " Exit terminal mode
+" <C-g> is preferred over an <Esc>-based mapping: 'timeoutlen' (600ms, see
+" basic-settings.vim) applies to terminal-mode key sequences too, so an
+" <Esc><Esc>-style mapping would delay zsh's double-Esc sudo-prefix trick by
+" that much every time; a single chord has no such window.
 tnoremap <A-n> <C-\><C-n>
+tnoremap <C-g> <C-\><C-n>
