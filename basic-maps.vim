@@ -11,7 +11,10 @@ nnoremap <space> za
 " TODO After installing a proper completion engine, this needs to be reverted
 inoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<C-x><C-n>"
 inoremap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<C-x><C-p>"
-inoremap <expr><C-l>  pumvisible() ? "\<C-y>" : "\<C-l>"
+" <C-l> is left to UltiSnips' jump-forward trigger (plugconf/ultisnips.vim);
+" the <Nop> only matters once a snippet has fully exited and nothing claims
+" the key anymore — an unmapped <C-l> in Insert mode types a literal ^L.
+inoremap <C-l> <Nop>
 
 " With YCM's popup open, plain <CR> either just accepts a navigated-to
 " candidate (already live-written into the buffer by <C-j>/<C-k> above) or,
