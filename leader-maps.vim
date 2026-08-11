@@ -8,7 +8,8 @@ nnoremap ,e :quit<cr>
 nnoremap ,wd :write<cr>:bdelete<cr>
 nnoremap ,we :wq<cr>
 nnoremap ,ee :qa<cr>
-nnoremap ,wee :wqall!<cr>
+nnoremap ,wee :wall<cr>:mksession! ~/.vim_session<cr>:qall!<cr>
+nnoremap ,wqa :wqall!<cr>
 
 " Session save (windows, buffers, window positions)
 nnoremap ,q :mksession! ~/.vim_session<cr>
