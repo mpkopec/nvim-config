@@ -10,6 +10,11 @@ nnoremap ,we :wq<cr>
 nnoremap ,ee :qa<cr>
 nnoremap ,wee :wqall!<cr>
 
+" Session save (windows, buffers, window positions)
+nnoremap ,q :mksession! ~/.vim_session<cr>
+nnoremap ,qe :mksession! ~/.vim_session<cr>:quit<cr>
+nnoremap ,qee :mksession! ~/.vim_session<cr>:qall!<cr>
+
 " Edit and source vimrc
 " memo: vim edit
 nnoremap ,ve :edit $MYVIMRC<cr>
