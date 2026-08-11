@@ -408,9 +408,9 @@ end process;
 endsnippet
 
 snippet pra "Process all"
-process (${1:all})
+process (all)
 begin
-	${2:${VISUAL}}
+	${1:${VISUAL}}
 end process;
 endsnippet
 
@@ -446,8 +446,7 @@ end case;
 endsnippet
 
 snippet wh "When statement"
-when ${1} =>
-	${2:${VISUAL}}
+when ${1} => ${2:${VISUAL}}
 endsnippet
 
 snippet for "For loop"
