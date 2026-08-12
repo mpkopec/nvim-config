@@ -138,6 +138,16 @@ function! s:BuildVhdlFoldCache() abort
     " 'if'/'case' are skipped for that line. 'for' and 'while' are never
     " counted as openers at all: they only ever qualify a following 'loop'
     " or 'generate', which is already counted on its own.
+
+    " The same conditional generate can have 'elsif cond generate' and
+    " 'else generate' continuation branches - still the single block opened
+    " by the leading 'if'/'case ... generate' header, closed by one 'end
+    " generate;'. Their branch keyword restates 'generate' on its own line
+    " though, which would otherwise be miscounted as a second opener with
+    " no matching close. Stripped here so only a genuine opening header's
+    " 'generate' survives into the check below.
+    let opens_text = substitute(opens_text, '\C\<\%(elsif\|else\)\>\zs.\{-}\<generate\>', '', 'g')
+
     if opens_text =~# '\C\<generate\>'
       let opens += len(split(opens_text, '\C\<generate\>', 1)) - 1
     else
