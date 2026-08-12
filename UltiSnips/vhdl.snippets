@@ -278,7 +278,13 @@ begin
 end function $1;
 endsnippet
 
-snippet ifgen "If Generate"
+snippet ifg "If generate (no declarative block)"
+${1:GEN_LABEL} : if ${2:CONDITION} generate
+	${3:${VISUAL}}
+end generate $1;
+endsnippet
+
+snippet ifgb "If generate (with declarative block)"
 ${1:GEN_LABEL} : if ${2:CONDITION} generate
 	${3:${VISUAL}}
 begin
@@ -286,10 +292,79 @@ begin
 end generate $1;
 endsnippet
 
-snippet forgen "For Generate"
+snippet ifeg "If-else generate (no declarative block)"
+${1:GEN_LABEL} : if ${2:CONDITION} generate
+	${3:${VISUAL}}
+else generate
+	${4:${VISUAL}}
+end generate $1;
+endsnippet
+
+snippet ifegb "If-else generate (with declarative block)"
+${1:GEN_LABEL} : if ${2:CONDITION} generate
+	${3:${VISUAL}}
+begin
+	${4:${VISUAL}}
+else generate
+	${5:${VISUAL}}
+begin
+	${6:${VISUAL}}
+end generate $1;
+endsnippet
+
+snippet elg "Else generate (no declarative block)"
+else generate
+	${1:${VISUAL}}
+endsnippet
+
+snippet elgb "Else generate (with declarative block)"
+else generate
+	${1:${VISUAL}}
+begin
+	${2:${VISUAL}}
+endsnippet
+
+snippet eifg "Elsif generate (no declarative block)"
+elsif ${1:CONDITION} generate
+	${2:${VISUAL}}
+endsnippet
+
+snippet eifgb "Elsif generate (with declarative block)"
+elsif ${1:CONDITION} generate
+	${2:${VISUAL}}
+begin
+	${3:${VISUAL}}
+endsnippet
+
+snippet forg "For generate (no declarative block)"
 ${1:GEN_LABEL} : for ${2:i} in ${3:0} to ${4:N} - 1 generate
 	${5:${VISUAL}}
 end generate $1;
+endsnippet
+
+snippet forgb "For generate (with declarative block)"
+${1:GEN_LABEL} : for ${2:i} in ${3:0} to ${4:N} - 1 generate
+	${5:${VISUAL}}
+begin
+	${6:${VISUAL}}
+end generate $1;
+endsnippet
+
+snippet cag "Case generate"
+${1:GEN_LABEL} : case ${2:EXPRESSION} generate
+	${3:${VISUAL}}
+end generate $1;
+endsnippet
+
+snippet whg "When statement (generate, no declarative block)"
+when ${1:CHOICE} => ${2:${VISUAL}}
+endsnippet
+
+snippet whgb "When statement (generate, with declarative block)"
+when ${1:CHOICE} =>
+	${2:${VISUAL}}
+begin
+	${3:${VISUAL}}
 endsnippet
 
 snippet whe "Conditional (when...else) chain link"
@@ -298,7 +373,7 @@ endsnippet
 
 ## Declarations
 snippet co "Constant"
-constant C_${1:CONSTANT_NAME} : ${2:integer} := ${3:value};
+constant C_${1:CONSTANT_NAME} : ${2:integer} := ${3:value}
 endsnippet
 
 snippet sl "std_logic"
@@ -309,16 +384,40 @@ snippet slv "std_logic_vector"
 std_logic_vector(${1:n} downto ${2:0})
 endsnippet
 
+snippet int "integer"
+integer
+endsnippet
+
+snippet nat "natural"
+natural
+endsnippet
+
+snippet pos "positive"
+positive
+endsnippet
+
+snippet rang "Range suffix (ascending)"
+range ${1:0} to ${2:N} - 1
+endsnippet
+
 snippet ge "Generic-like format, name : type"
-${1:NAME} : ${2:std_logic};
+${1:NAME} : ${2:std_logic}
 endsnippet
 
 snippet si "Signal declaration"
-signal ${1:signal_name} : ${2:std_logic};
+signal ${1:signal_name} : ${2:std_logic}
 endsnippet
 
 snippet var "Variable declaration"
-variable ${1:name} : ${2:integer};
+variable ${1:name} : ${2:integer}
+endsnippet
+
+snippet fi "File declaration"
+file ${1:name} : ${2:text}
+endsnippet
+
+snippet svar "Shared variable declaration"
+shared variable ${1:name} : ${2:integer}
 endsnippet
 
 snippet io "Input/output declaration"
@@ -356,6 +455,18 @@ endsnippet
 
 snippet i2s "integer to signed"
 to_signed(${1:${VISUAL}}, ${2:width})
+endsnippet
+
+snippet u2s "unsigned to signed (direct cast)"
+signed(${1:${VISUAL}})
+endsnippet
+
+snippet s2u "signed to unsigned (direct cast)"
+unsigned(${1:${VISUAL}})
+endsnippet
+
+snippet rsz "Resize unsigned/signed"
+resize(${1:${VISUAL}}, ${2:width})
 endsnippet
 
 snippet slv2i "std_logic_vector to integer (via unsigned/signed)"
@@ -459,6 +570,14 @@ snippet whi "While loop"
 while ${1} loop
 	${2:${VISUAL}}
 end loop;
+endsnippet
+
+snippet wau "Wait until"
+wait until ${1:CONDITION};
+endsnippet
+
+snippet waf "Wait for"
+wait for ${1:TIME};
 endsnippet
 
 ## Misc
