@@ -367,13 +367,13 @@ begin
 	${3:${VISUAL}}
 endsnippet
 
-snippet whe "Conditional (when...else) chain link"
+snippet whe "Conditional (when...else) chain link" i
 ${1:value} when ${2:condition} else $0
 endsnippet
 
 ## Declarations
 snippet co "Constant"
-constant C_${1:CONSTANT_NAME} : ${2:integer} := ${3:value}
+constant C_${1:CONSTANT_NAME} : ${2:integer} := ${3:value};
 endsnippet
 
 snippet sl "std_logic"
@@ -401,23 +401,23 @@ range ${1:0} to ${2:N} - 1
 endsnippet
 
 snippet ge "Generic-like format, name : type"
-${1:NAME} : ${2:std_logic}
+${1:NAME} : ${2:std_logic};
 endsnippet
 
 snippet si "Signal declaration"
-signal ${1:signal_name} : ${2:std_logic}
+signal ${1:signal_name} : ${2:std_logic};
 endsnippet
 
 snippet var "Variable declaration"
-variable ${1:name} : ${2:integer}
+variable ${1:name} : ${2:integer};
 endsnippet
 
 snippet fi "File declaration"
-file ${1:name} : ${2:text}
+file ${1:name} : ${2:text};
 endsnippet
 
 snippet svar "Shared variable declaration"
-shared variable ${1:name} : ${2:integer}
+shared variable ${1:name} : ${2:integer};
 endsnippet
 
 snippet io "Input/output declaration"
@@ -425,55 +425,55 @@ ${1:name} : ${2: in} ${3:std_logic};
 endsnippet
 
 ## Type Conversions
-snippet u2slv "unsigned to std_logic_vector"
+snippet u2slv "unsigned to std_logic_vector" i
 std_logic_vector(${1:${VISUAL}})
 endsnippet
 
-snippet slv2u "std_logic_vector to unsigned"
+snippet slv2u "std_logic_vector to unsigned" i
 unsigned(${1:${VISUAL}})
 endsnippet
 
-snippet s2slv "signed to std_logic_vector"
+snippet s2slv "signed to std_logic_vector" i
 std_logic_vector(${1:${VISUAL}})
 endsnippet
 
-snippet slv2s "std_logic_vector to signed"
+snippet slv2s "std_logic_vector to signed" i
 signed(${1:${VISUAL}})
 endsnippet
 
-snippet u2i "unsigned to integer"
+snippet u2i "unsigned to integer" i
 to_integer(${1:${VISUAL}})
 endsnippet
 
-snippet i2u "integer to unsigned"
+snippet i2u "integer to unsigned" i
 to_unsigned(${1:${VISUAL}}, ${2:width})
 endsnippet
 
-snippet s2i "signed to integer"
+snippet s2i "signed to integer" i
 to_integer(${1:${VISUAL}})
 endsnippet
 
-snippet i2s "integer to signed"
+snippet i2s "integer to signed" i
 to_signed(${1:${VISUAL}}, ${2:width})
 endsnippet
 
-snippet u2s "unsigned to signed (direct cast)"
+snippet u2s "unsigned to signed (direct cast)" i
 signed(${1:${VISUAL}})
 endsnippet
 
-snippet s2u "signed to unsigned (direct cast)"
+snippet s2u "signed to unsigned (direct cast)" i
 unsigned(${1:${VISUAL}})
 endsnippet
 
-snippet rsz "Resize unsigned/signed"
+snippet rsz "Resize unsigned/signed" i
 resize(${1:${VISUAL}}, ${2:width})
 endsnippet
 
-snippet slv2i "std_logic_vector to integer (via unsigned/signed)"
+snippet slv2i "std_logic_vector to integer (via unsigned/signed)" i
 to_integer(${1|unsigned,signed|}(${2:${VISUAL}}))
 endsnippet
 
-snippet i2slv "integer to std_logic_vector (via unsigned/signed)"
+snippet i2slv "integer to std_logic_vector (via unsigned/signed)" i
 std_logic_vector(to_${1|unsigned,signed|}(${2:${VISUAL}}, ${3:width}))
 endsnippet
 
@@ -581,6 +581,6 @@ wait for ${1:TIME};
 endsnippet
 
 ## Misc
-snippet oth "Others"
+snippet oth "Others" i
 (others => '${1:0}')
 endsnippet
