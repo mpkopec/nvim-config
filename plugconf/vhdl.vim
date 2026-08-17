@@ -167,6 +167,59 @@ function! s:BuildVhdlFoldCache() abort
   endfor
 endfunction
 
+" ---- Structural generic/port/map/procedure-param list indentation ----
+
+" GetVHDLindent() (vim-polyglot's bundled indent/vhdl.vim) decides whether a
+" line belongs to a generic/port association list by pattern-matching the
+" CURRENT line's own text (looking for a trailing ':' or '=>'). That breaks
+" whenever the line doesn't have that text yet - an empty line mid-edit (a
+" freshly opened line, or 'S' substitute-line), or a line whose syntax is
+" momentarily invalid while still being typed. Because the script computes
+" each line's indent relative to the line above it rather than from actual
+" paren-nesting depth, one missed match corrupts the baseline for every
+" following line, including the list's own closing ')' and the next sibling
+" block.
+"
+" This replaces that one feature with a backward paren-depth scan of the
+" real enclosing '(', mirroring how indent/python.vim locates brackets for
+" continuation-line indent: derive the indent from where the opening
+" 'generic ('/'port ('/'map ('/'procedure name (' line actually is, never
+" from what the current or previous line's text says, so it stays correct
+" regardless of in-progress or invalid syntax.
+let s:vhdl_list_opener = '\c^\s*\%(generic\s\+map\|port\s\+map\|generic\|port\|map\|procedure\s\+\w\+\|function\s\+\w\+\)\s*($'
+
+" Deliberately not searchpair()/cursor()-based: calling a cursor-moving
+" search from inside indentexpr corrupts in-progress change operators
+" (verified - 'S' on a single line wiped the whole buffer), since Vim
+" computes the new indent while a linewise change is still pending. This
+" walks getline()/comment-stripped text the same way
+" s:BuildVhdlFoldCache() above already does for fold depth, so
+" unmatched-'(' detection never touches the window/cursor.
+function! s:VhdlFindListOpener(lnum) abort
+  let depth = 1
+  let lnum = a:lnum - 1
+  while lnum > 0
+    let s = substitute(getline(lnum), '--.*$', '', '')
+    let depth -= s:CountLiteral(s, '(') - s:CountLiteral(s, ')')
+    if depth <= 0
+      return getline(lnum) =~ s:vhdl_list_opener ? lnum : -1
+    endif
+    let lnum -= 1
+  endwhile
+  return -1
+endfunction
+
+function! VhdlAlignedListIndent(lnum) abort
+  let opener = s:VhdlFindListOpener(a:lnum)
+  if opener == -1
+    return GetVHDLindent()
+  endif
+  if getline(a:lnum) =~ '^\s*)'
+    return indent(opener)
+  endif
+  return indent(opener) + shiftwidth()
+endfunction
+
 " ---- Autocmds ----
 
 augroup vhdl_settings
@@ -174,6 +227,7 @@ augroup vhdl_settings
   autocmd FileType vhdl  setl comments=:--
   autocmd FileType vhdl  setl commentstring=--\ %s
   autocmd FileType vhdl  call s:EnableVhdlExprFolds()
+  autocmd FileType vhdl  setlocal indentexpr=VhdlAlignedListIndent(v:lnum)
   autocmd FileType vhdl    vnoremap <buffer> ,xc :call <SID>VHDLHexToC()<CR>
   autocmd FileType vhdl    vnoremap <buffer> ,cx :call <SID>CToVHDLHex()<CR>
   autocmd BufWinEnter *.vhd,*.vhdl vnoremap <buffer> ,xc :call <SID>VHDLHexToC()<CR>
