@@ -371,6 +371,10 @@ snippet whe "Conditional (when...else) chain link" i
 ${1:value} when ${2:condition} else $0
 endsnippet
 
+snippet sa "Signal assignment"
+${1:signal_name} <= ${2:expression};$0
+endsnippet
+
 ## Declarations
 snippet co "Constant"
 constant C_${1:CONSTANT_NAME} : ${2:integer} := ${3:value};
