@@ -23,7 +23,8 @@ if has('nvim')
   " coverage; plain Vim has no treesitter, so polyglot stays authoritative
   " there for all of these.
   call extend(g:polyglot_disabled,
-        \ ['python', 'markdown', 'yaml', 'json', 'json5', 'jsonc', 'vhdl'])
+        \ ['python', 'markdown', 'yaml', 'json', 'json5', 'jsonc', 'vhdl',
+        \  'c/c++', 'cpp-modern', 'rust'])
   " vhdl's indent (GetVHDLindent(), plugconf/vhdl.vim) and folding
   " (VhdlFoldExpr) stay unaffected: GetVHDLindent() turns out to be a shared
   " upstream community script (Gerald Lai, vim.org #1450) that Neovim's own
@@ -32,6 +33,27 @@ if has('nvim')
   " back to Neovim's own copy of the same function, and VhdlFoldExpr is
   " untouched either way. Highlighting moves to treesitter (already
   " installed, see plugconf/treesitter.lua).
+  " c/c++: unlike vhdl, polyglot's copy is not a near-identical rename —
+  " it's a vendored snapshot dated 2021-05-24 (checked the file header
+  " directly), while Neovim's own bundled syntax/c.vim is dated
+  " 2025-01-18 and currently loses precedence to it (confirmed via
+  " :scriptnames on a real .c buffer: polyglot's copy loads first, sets
+  " b:current_syntax, and Neovim's own guard then no-ops). Disabling
+  " polyglot's c/c++ and cpp-modern modules here restores Neovim's newer
+  " copy as the has('nvim') fallback and lets treesitter take over
+  " highlighting outright (see plugconf/treesitter.lua). c has no
+  " indent-file conflict to begin with — only Neovim's own indent/c.vim
+  " (cindent-based) is on the runtimepath at all, so it's left untouched.
+  " rust: single disable-key 'rust' covers polyglot's ftplugin/indent/
+  " syntax/after-syntax/tagbar files together. Confirmed via header dates:
+  " polyglot's copies are 2016-06-08/2018-01-10/2016-02-24; Neovim's own
+  " bundled copies (same upstream, rust-lang/rust.vim) are
+  " 2024-03-17/2024-07-04/2023-09-11 — 6-8 years newer, and currently
+  " lose precedence to polyglot's stale copies the same way c/c++ did.
+  " Indent additionally moves off the built-in entirely, onto treesitter's
+  " indentexpr (ftype-settings.vim) — unlike cindent, Neovim's own
+  " indent/rust.vim carries its own comment flagging upstream rust.vim as
+  " unmaintained, so there's no mature-indent argument to preserve it.
 endif
 
 " Themes
@@ -104,7 +126,7 @@ if has('python3')
   Plug 'honza/vim-snippets'
   exec 'source ' .  stdpath('config') . '/plugconf/ultisnips.vim'
 
-  Plug 'https://github.com/ycm-core/YouCompleteMe', { 'do': 'python3 install.py' }
+  Plug 'https://github.com/ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --rust-completer' }
   exec 'source ' .  stdpath('config') . '/plugconf/ycm.vim'
 
   " Plug 'https://github.com/davidhalter/jedi-vim'
