@@ -3,6 +3,37 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin(stdpath('data') . '/plugged')
 
+" Disabled outright — superseded by a dedicated, Vim-compatible plugin/port,
+" not treesitter, so this holds under plain Vim too:
+" - verilog/systemverilog: vhda/verilog_systemverilog.vim, already the sole
+"   active provider via the filetype override in
+"   plugconf/verilog_systemverilog.vim — this is defense in depth.
+" - xdc: ported into after/syntax/xdc.vim.
+" - openscad: vim-openscad already wins precedence today (loads first, and
+"   unlike polyglot's systemverilog/jinja2 files it doesn't force-override);
+"   this just stops the dead copy from being sourced at all.
+" - ansible: polyglot's internal disable-key for syntax/jinja2.vim (oddly
+"   filed under 'ansible', not 'jinja2' — checked the is_disabled() call
+"   site directly). Also gates polyglot's actual Ansible playbook/inventory
+"   support, unused in this repo. Superseded by Glench/Vim-Jinja2-Syntax.
+let g:polyglot_disabled = ['verilog', 'systemverilog', 'xdc', 'openscad', 'ansible']
+
+if has('nvim')
+  " Only meaningful with treesitter actually installed to replace polyglot's
+  " coverage; plain Vim has no treesitter, so polyglot stays authoritative
+  " there for all of these.
+  call extend(g:polyglot_disabled,
+        \ ['python', 'markdown', 'yaml', 'json', 'json5', 'jsonc', 'vhdl'])
+  " vhdl's indent (GetVHDLindent(), plugconf/vhdl.vim) and folding
+  " (VhdlFoldExpr) stay unaffected: GetVHDLindent() turns out to be a shared
+  " upstream community script (Gerald Lai, vim.org #1450) that Neovim's own
+  " bundled runtime/indent/vhdl.vim provides too, near-byte-identical to
+  " polyglot's copy — so disabling polyglot's vhdl module here just falls
+  " back to Neovim's own copy of the same function, and VhdlFoldExpr is
+  " untouched either way. Highlighting moves to treesitter (already
+  " installed, see plugconf/treesitter.lua).
+endif
+
 " Themes
 Plug 'https://github.com/rafi/awesome-vim-colorschemes.git'
 
@@ -34,8 +65,8 @@ Plug 'andymass/vim-matchup'
 " Highlight just yanked text
 Plug 'machakann/vim-highlightedyank'
 
-" Jinja2 templates
-Plug 'lepture/vim-jinja'
+" Jinja2 templates (only dialect in use here — no plain Jinja/Nunjucks)
+Plug 'Glench/Vim-Jinja2-Syntax'
 
 " LaTeX support
 Plug 'lervag/vimtex'
@@ -52,6 +83,10 @@ if has('nvim')
 
   " Markdown heading numbering
   Plug 'whitestarrain/md-section-number.nvim'
+
+  " Syntax-tree-based highlighting/folding
+  " master, not main: main requires vim.list, not present until after Nvim 0.11
+  Plug 'nvim-treesitter/nvim-treesitter', { 'branch': 'master', 'do': ':TSUpdate' }
 endif
 
 " NERDTree

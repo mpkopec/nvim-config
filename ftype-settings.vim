@@ -40,6 +40,20 @@ augroup python_folding
   " Jinja2 templates (e.g. f"{{{n}"), producing runaway folds. The prior
   " marker-based approach (lib/fold-markers.vim, ,fm/,fM) is preserved at
   " git tag python-fold-markers-pre-removal.
-  autocmd FileType python setlocal foldmethod=indent
+  "
+  " Prefer treesitter's foldexpr when a Python parser is actually available
+  " (its fold includes the def/class header line, unlike plain indent
+  " folding); fall back to foldmethod=indent otherwise, e.g. on plain Vim or
+  " if the treesitter python parser was never installed.
+  autocmd FileType python call s:SetPythonFoldMethod()
 augroup END
+
+function! s:SetPythonFoldMethod() abort
+  if has('nvim') && luaeval("pcall(vim.treesitter.language.add, 'python')")
+    setlocal foldmethod=expr
+    setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
+  else
+    setlocal foldmethod=indent
+  endif
+endfunction
 " }}}
