@@ -4,10 +4,31 @@ set termguicolors
 
 augroup color_overrides
   autocmd!
-  autocmd ColorScheme carbonized-dark highlight CursorLine guibg=#3b3b37 gui=underline
+  " autocmd ColorScheme carbonized-dark highlight CursorLine guibg=#3b3b37 gui=underline
+  " carbonized-dark predates treesitter's @variable capture, so plain
+  " identifiers fall through to Neovim's built-in default link, which
+  " resolves to an auto-computed near-white instead of Normal's warm
+  " foreground. Re-link it here, alongside the colorscheme it corrects for.
+  " autocmd ColorScheme carbonized-dark highlight! link @variable Normal
+
+  " everforest has the same @variable gap as carbonized-dark above.
+  " autocmd ColorScheme everforest highlight! link @variable Normal
+
+  " nordfox has the same @variable gap; nordic defines it correctly already.
+  autocmd ColorScheme nordfox highlight! link @variable Normal
 augroup END
 
-colorscheme carbonized-dark
+" colorscheme carbonized-dark
+" set background=dark
+" colorscheme everforest
+" reduced_blue tones the Frost blues toward Aurora's warmer accents.
+" lua require('nordic').setup({ reduced_blue = true })
+" colorscheme nordic
+" nordfox's default bg1 (#2e3440) reads a touch light; darkened ~15% here,
+" leaving bg0 (statusline/float background) untouched so the two stay
+" visually distinct from each other.
+" lua require('nightfox').setup({ palettes = { nordfox = { bg1 = "#272c36" } } })
+colorscheme nordfox
 
 " Filetype plugin
 filetype on

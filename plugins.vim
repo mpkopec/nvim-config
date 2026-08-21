@@ -58,6 +58,9 @@ endif
 
 " Themes
 Plug 'https://github.com/rafi/awesome-vim-colorschemes.git'
+Plug 'sainnhe/everforest'
+Plug 'AlexvZyl/nordic.nvim', { 'branch': 'main' }
+Plug 'EdenEast/nightfox.nvim'
 
 " Better Comments
 Plug 'tpope/vim-commentary'
