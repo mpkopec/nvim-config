@@ -32,7 +32,7 @@ pipx inject pynvim "hdl-signature @ git+https://github.com/mpkopec/hdl-signature
 
 **Configuration files** (vimscript, root level):
 - `plugins.vim` — vim-plug declarations with conditional loading
-- `basic-settings.vim` — core settings, folding logic (`CloseFoldsInnerFirst()`), color/indent
+- `basic-settings.vim` — core settings, foldlevel/foldcolumn defaults, color/indent
 - `basic-maps.vim` — window navigation, fold/line movement keymaps
 - `leader-maps.vim` — comma-leader mappings (`,w` save, `,e` exit, `,l` next buffer, etc.)
 - `basic-acmds.vim` — autocommands (trailing whitespace trim, filetype overrides)
@@ -57,4 +57,4 @@ if exists('g:vscode') " VS Code-specific bindings (uses VSCodeNotify)
 
 **Lua usage**: Only for Neovim-specific plugins (Telescope in `plugconf/telescope.vim`, `plugconf/md-section-number.lua`). Everything else is vimscript.
 
-**Folding**: Custom `CloseFoldsInnerFirst()` function for hierarchical closure; Verilog uses structural keyword-based fold expressions (defined in `plugconf/verilog_systemverilog.vim`).
+**Folding**: `<space>` is mapped to `za` (toggle innermost fold under cursor); native `zc`/`zC`/`zo`/`zO` are unmapped and available for single-level vs. recursive open/close. Verilog uses structural keyword-based fold expressions (defined in `plugconf/verilog_systemverilog.vim`).
