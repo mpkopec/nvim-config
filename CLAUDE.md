@@ -57,4 +57,4 @@ if exists('g:vscode') " VS Code-specific bindings (uses VSCodeNotify)
 
 **Lua usage**: Only for Neovim-specific plugins (Telescope in `plugconf/telescope.vim`, `plugconf/md-section-number.lua`). Everything else is vimscript.
 
-**Folding**: `<space>` is mapped to `za` (toggle innermost fold under cursor); native `zc`/`zC`/`zo`/`zO` are unmapped and available for single-level vs. recursive open/close. Verilog uses structural keyword-based fold expressions (defined in `plugconf/verilog_systemverilog.vim`).
+**Folding**: `<space>` is mapped to `zA` (recursive toggle of the whole nested fold tree under the cursor, not just one level); native `za`/`zc`/`zC`/`zo`/`zO` are unmapped and available for single-level vs. recursive open/close. Verilog uses structural keyword-based fold expressions (defined in `plugconf/verilog_systemverilog.vim`).

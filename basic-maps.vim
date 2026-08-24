@@ -5,7 +5,12 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Better fold toggling
-nnoremap <space> za
+" zA (not za): recursive toggle. Several fold-worthy treesitter nodes (e.g.
+" a function and its multi-line parameter list) start on the same line, so a
+" single-level za on that line almost always hits the innermost one instead
+" of the construct the cursor is actually on; zA toggles the whole nested
+" tree under the cursor as one unit and round-trips cleanly.
+nnoremap <space> zA
 
 " Replace Ctrl-n, Ctrl-p with Ctrl-j and Ctrl-k
 " TODO After installing a proper completion engine, this needs to be reverted
