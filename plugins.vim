@@ -61,6 +61,12 @@ Plug 'https://github.com/rafi/awesome-vim-colorschemes.git'
 Plug 'sainnhe/everforest'
 Plug 'AlexvZyl/nordic.nvim', { 'branch': 'main' }
 Plug 'EdenEast/nightfox.nvim'
+Plug 'RRethy/base16-nvim'
+Plug 'savq/melange-nvim'
+Plug 'rebelot/kanagawa.nvim'
+Plug 'sainnhe/gruvbox-material'
+Plug 'tanvirtin/monokai.nvim'
+Plug 'sainnhe/sonokai'
 
 " Better Comments
 Plug 'tpope/vim-commentary'
