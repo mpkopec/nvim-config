@@ -1,1 +1,1 @@
-/home/mkopec/repos/claude-setup/projects/vim-config/.claude/CLAUDE.md
+/home/mkopec/.claude-setup/projects/vim-config/.claude/CLAUDE.md

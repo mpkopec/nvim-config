@@ -35,8 +35,59 @@ autocmd FileType tex nnoremap ,lg <plug>(vimtex-status)
 autocmd FileType tex nnoremap ,lG <plug>(vimtex-status-all)
 autocmd FileType tex nnoremap ,lc <plug>(vimtex-clean)
 autocmd FileType tex nnoremap ,lC <plug>(vimtex-clean-full)
-autocmd FileType tex nnoremap ,lm <plug>(vimtex-imaps-list)
 autocmd FileType tex nnoremap ,lx <plug>(vimtex-reload)
 autocmd FileType tex nnoremap ,lX <plug>(vimtex-reload-state)
-autocmd FileType tex nnoremap ,ls <plug>(vimtex-toggle-main)
 autocmd FileType tex nnoremap ,la <plug>(vimtex-context-menu)
+
+" TikZ scratchpad workflow: ,ls previews the current figure fragment
+" standalone against <root>/scratchpad.tex (fast, no full-thesis recompile);
+" ,lm switches back to the project's main.tex. Relies on the .latexmain
+" marker convention to find the project root, and on a scratchpad.tex
+" existing there (see phd_thesis repo). Overrides the former ,ls
+" (vimtex-toggle-main, inert outside the LaTeX subfiles package) and ,lm
+" (vimtex-imaps-list, unused) bindings.
+function! s:VimtexScratchRoot() abort
+  let l:dir = expand('%:p:h')
+  while l:dir !=# '/' && !filereadable(l:dir . '/main.tex.latexmain')
+    let l:dir = fnamemodify(l:dir, ':h')
+  endwhile
+  return filereadable(l:dir . '/main.tex.latexmain') ? l:dir : ''
+endfunction
+
+function! s:VimtexScratchEnter() abort
+  let l:root = s:VimtexScratchRoot()
+  if empty(l:root) || !filereadable(l:root . '/scratchpad.tex')
+    echohl WarningMsg | echom 'vimtex scratchpad: no scratchpad.tex found from this buffer' | echohl None
+    return
+  endif
+  let l:figure = expand('%:p')
+  let l:rel = substitute(l:figure, '^' . escape(l:root, '/\') . '/', '', '')
+  " Guard: only figure fragments under Figures/tikz/ make sense as a scratch
+  " target. Without this, running ,ls from main.tex itself would redirect
+  " _scratch.tex to \input{main.tex} -- scratchpad.tex would then embed the
+  " whole thesis inside a preamble that already defines every one of its
+  " macros/glossary entries, producing a wall of "already defined" errors.
+  if l:rel !~# '^Figures/tikz/' || l:rel ==# 'Figures/tikz/_scratch.tex'
+    echohl WarningMsg
+    echom 'vimtex scratchpad: ,ls only makes sense from a Figures/tikz/*.tex figure file, not ' . l:rel
+    echohl None
+    return
+  endif
+  call writefile(['\input{' . l:rel . '}'], l:root . '/Figures/tikz/_scratch.tex')
+  let b:vimtex_main = l:root . '/scratchpad.tex'
+  VimtexReloadState
+  VimtexCompile
+  echom 'vimtex main -> scratchpad.tex (' . l:rel . ')'
+endfunction
+
+function! s:VimtexScratchLeave() abort
+  if exists('b:vimtex_main')
+    silent! VimtexStop
+    unlet b:vimtex_main
+    VimtexReloadState
+    echom 'vimtex main -> main.tex'
+  endif
+endfunction
+
+autocmd FileType tex nnoremap ,ls :call <SID>VimtexScratchEnter()<cr>
+autocmd FileType tex nnoremap ,lm :call <SID>VimtexScratchLeave()<cr>

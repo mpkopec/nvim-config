@@ -91,6 +91,17 @@ colorscheme kanagawa
 " actual design, not a bug, so it is left unoverridden here.
 " colorscheme base16-atelier-dune
 
+" Python3 provider: install.sh provisions hdl-signature (used by the VHDL
+" inst: snippet) into an isolated uv tool venv rather than onto whatever
+" python3 is first on $PATH, so nvim has to be pointed at that venv's
+" pynvim-python wrapper explicitly -- otherwise it silently falls back to
+" system python3, which lacks hdl_signature. Guarded on filereadable() so a
+" fresh clone that hasn't run install.sh yet still gets nvim's normal
+" python3 auto-detection instead of a hard provider failure.
+if filereadable(expand('~/.local/bin/pynvim-python'))
+  let g:python3_host_prog = expand('~/.local/bin/pynvim-python')
+endif
+
 " Filetype plugin
 filetype on
 
