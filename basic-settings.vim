@@ -11,9 +11,6 @@ augroup color_overrides
   " foreground. Re-link it here, alongside the colorscheme it corrects for.
   autocmd ColorScheme carbonized-dark highlight! link @variable Normal
 
-  " everforest has the same @variable gap as carbonized-dark above.
-  autocmd ColorScheme everforest highlight! link @variable Normal
-
   " gruvbox-material's Type/Structure/StorageClass default to mustard/orange
   " (#d8a657/#e78a4e), the same failure mode that sank everforest and
   " melange for HDL work. Identifier already sits on the palette's one cool
@@ -22,14 +19,17 @@ augroup color_overrides
   autocmd ColorScheme gruvbox-material highlight! link Type Identifier
   autocmd ColorScheme gruvbox-material highlight! link Structure Identifier
   autocmd ColorScheme gruvbox-material highlight! link StorageClass Identifier
+
+  " kanagawa-dragon's stock ColorColumn (theme.ui.bg_p1) collapses back onto
+  " Normal's own patched bg (#282727) once ui.bg is overridden above, so the
+  " textwidth guide line renders invisible. carbonized-dark's ColorColumn is
+  " bg-only and reuses its own CursorLine shade (s:g1); mirror that here with
+  " dragonBlack5 (#393836), the shade kanagawa's CursorLine already uses.
+  autocmd ColorScheme kanagawa highlight ColorColumn guibg=#393836
 augroup END
 
 " colorscheme carbonized-dark
 " set background=dark
-" colorscheme everforest
-" melange's @variable already links correctly to Normal out of the box, no
-" fix needed here.
-" colorscheme melange
 
 " --- 2026-08-27 warm-alternative search (Perplexity-assisted): baseline
 " carbonized-dark compared against candidates picked to keep Type/
@@ -56,17 +56,6 @@ colorscheme kanagawa
 " let g:gruvbox_material_background = 'medium'
 " colorscheme gruvbox-material
 
-" candidate 3, REJECTED (8/10): sonokai (Shusia style) -- mood-dependent,
-" and tires the eye faster on longer looks than the three winners.
-" Type/Structure/StorageClass are unconditionally hard-coded to blue
-" (#7accd7) in the plugin's own source, the strongest cool-Type guarantee
-" of any candidate tried -- but bg (#2d2a2e) carries a purple-gray
-" undertone rather than carbonized's olive-khaki, and Keyword/Statement
-" (#f85e84) is a vivid magenta-pink. @variable already links to Normal
-" correctly, no fix needed. Kept commented for reference, not a toggle pick.
-" let g:sonokai_style = 'shusia'
-" colorscheme sonokai
-
 " candidate 1, WINNER (8.5/10): monokai, soda palette as base -- chosen
 " over classic/ristretto/pro after iterating on two axes: Type/Structure/
 " StorageClass are natively cyan across the whole monokai family (no
@@ -81,15 +70,6 @@ colorscheme kanagawa
 " any dimming pulled it toward pink instead of gray-neutral and it was
 " dropped as a fg-dimming base.
 " lua require('monokai').setup({ palette = vim.tbl_extend('force', require('monokai').soda, { white = '#e7e7da', pink = '#c82b68', green = '#8fbf44', aqua = '#8ccdd4', yellow = '#c9c277', orange = '#d38640', purple = '#a37fe3', red = '#c82b68' }) })
-
-" reduced_blue tones the Frost blues toward Aurora's warmer accents.
-" lua require('nordic').setup({ reduced_blue = true })
-" colorscheme nordic
-" base16-atelier-dune deliberately links @variable/TSVariable to its base08
-" accent (a saturated red, #d73737) rather than to Normal, unlike the
-" unintentional gap the other schemes above have -- this is upstream's
-" actual design, not a bug, so it is left unoverridden here.
-" colorscheme base16-atelier-dune
 
 " Python3 provider: install.sh provisions hdl-signature (used by the VHDL
 " inst: snippet) into an isolated uv tool venv rather than onto whatever
