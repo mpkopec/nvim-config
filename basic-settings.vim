@@ -11,6 +11,13 @@ augroup color_overrides
   " foreground. Re-link it here, alongside the colorscheme it corrects for.
   autocmd ColorScheme carbonized-dark highlight! link @variable Normal
 
+  " carbonized-dark's own ColorColumn highlight (colors.vim:128) reuses the
+  " same g1 gray (#3b3b37) as CursorLine above, so the textwidth marker is
+  " invisible against the cursor line. Overridden here with a 25% blend of
+  " the palette's amber accent (gA, #ab8e38) into its dark background (g0,
+  " #2b2b2b), giving a warm marker distinct from both CursorLine and Normal.
+  autocmd ColorScheme carbonized-dark highlight ColorColumn guibg=#4b442e
+
   " gruvbox-material's Type/Structure/StorageClass default to mustard/orange
   " (#d8a657/#e78a4e), the same failure mode that sank everforest and
   " melange for HDL work. Identifier already sits on the palette's one cool
@@ -20,13 +27,33 @@ augroup color_overrides
   autocmd ColorScheme gruvbox-material highlight! link Structure Identifier
   autocmd ColorScheme gruvbox-material highlight! link StorageClass Identifier
 
+  " gruvbox-material's 'medium' dark palette sets bg1 (CursorLine) and bg2
+  " (ColorColumn) to the identical #32302f, the same collision as
+  " carbonized-dark above. Overridden with a 25% blend of the palette's
+  " material-dark yellow accent (#d8a657) into bg0 (#282828, Normal's own
+  " background), giving a warm marker distinct from both.
+  autocmd ColorScheme gruvbox-material highlight ColorColumn guibg=#544834
+
   " kanagawa-dragon's stock ColorColumn (theme.ui.bg_p1) collapses back onto
   " Normal's own patched bg (#282727) once ui.bg is overridden above, so the
   " textwidth guide line renders invisible. carbonized-dark's ColorColumn is
   " bg-only and reuses its own CursorLine shade (s:g1); mirror that here with
   " dragonBlack5 (#393836), the shade kanagawa's CursorLine already uses.
   autocmd ColorScheme kanagawa highlight ColorColumn guibg=#393836
+
+  " monokai-soda hard-codes both CursorLine and ColorColumn to the
+  " identical base3 (#2E323C), the same collision pattern as the two
+  " schemes above. Overridden with a 25% blend of the config's own
+  " desaturated soda yellow (#c9c277, see the palette override below) into
+  " base2 (#26292C, Normal's background), giving a warm marker distinct
+  " from both.
+  autocmd ColorScheme monokai_soda highlight ColorColumn guibg=#4f4f3f
 augroup END
+
+" Textwidth marker column. Its highlight color is defined per-colorscheme
+" above (ColorScheme autocmds); the column position itself is scheme-
+" independent, so it is set once here rather than repeated per scheme.
+set colorcolumn=88
 
 " colorscheme carbonized-dark
 " set background=dark
@@ -146,8 +173,8 @@ set expandtab
 " Always show the status line
 set laststatus=2
 
-" Show and wrap at 80th column
-set colorcolumn=88
+" Show and wrap at 80th column (colorcolumn itself is set above, alongside
+" the colorscheme definitions, since its highlight color is per-scheme)
 set textwidth=88
 
 " Wait for 600ms for the next key in the mapping
