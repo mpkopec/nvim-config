@@ -12,6 +12,13 @@ nnoremap <C-l> <C-w>l
 " tree under the cursor as one unit and round-trips cleanly.
 nnoremap <space> zA
 
+" Jump straight to a given fold level instead of toggling incrementally.
+" foldlevel is window-scoped, so setlocal (not set) keeps this from
+" affecting other windows showing the same buffer.
+nnoremap ,f1 :setlocal foldlevel=1<cr>
+nnoremap ,f2 :setlocal foldlevel=2<cr>
+nnoremap ,f9 :setlocal foldlevel=99<cr>
+
 " Replace Ctrl-n, Ctrl-p with Ctrl-j and Ctrl-k
 " TODO After installing a proper completion engine, this needs to be reverted
 inoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<C-x><C-n>"
