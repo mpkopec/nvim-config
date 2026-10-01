@@ -45,16 +45,16 @@ augroup END
 " carbonized/gruvbox-material's darkness range. Type/Structure/StorageClass
 " stay cool teal (#8ea4a2), @variable still links to Normal correctly --
 " nothing else about Dragon's palette changed, only that one background key.
-lua require('kanagawa').setup({ theme = 'dragon', background = { dark = 'dragon' }, colors = { theme = { dragon = { ui = { bg = '#282727' } } } } })
-colorscheme kanagawa
+" lua require('kanagawa').setup({ theme = 'dragon', background = { dark = 'dragon' }, colors = { theme = { dragon = { ui = { bg = '#282727' } } } } })
+" colorscheme kanagawa
 
 " candidate 2, WINNER (8.5/10): gruvbox-material -- a different-enough tone
 " from carbonized to be a genuine "change of pace" pick rather than a close
 " cousin, unlike candidates 1/4's closer resemblance. Type/Structure/
 " StorageClass fixed cool via the augroup override above, though Keyword/
 " Statement (#ea6962) still reads warm in keyword-dense VHDL.
-" let g:gruvbox_material_background = 'medium'
-" colorscheme gruvbox-material
+let g:gruvbox_material_background = 'medium'
+colorscheme gruvbox-material
 
 " candidate 1, WINNER (8.5/10): monokai, soda palette as base -- chosen
 " over classic/ristretto/pro after iterating on two axes: Type/Structure/
